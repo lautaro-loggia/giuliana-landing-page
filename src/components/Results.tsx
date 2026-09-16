@@ -16,11 +16,11 @@ import { Reveal } from "@/components/motion/Reveal";
  * Dos fotos y un divisor que se arrastra. La posición vive en un motion value,
  * nunca en el estado de React, así el arrastre no dispara renders.
  *
- * En touch el arrastre va sobre el tirador, que lleva touch-action: none. Si el
- * arrastre se tomara desde toda la foto, el navegador empieza a hacer scroll
- * vertical, cancela el puntero y el gesto se corta a la mitad. Tocar en
- * cualquier punto de la foto también mueve el divisor, así que en el celular se
- * puede usar sin arrastrar y la página sigue scrolleando con normalidad.
+ * En touch el arrastre vive solo en el tirador, que lleva touch-action: none.
+ * Si se tomara desde toda la foto, el navegador arranca a scrollear, cancela el
+ * puntero y el gesto se corta a la mitad. La foto no restringe el gesto, así
+ * que desde ahí se sigue scrolleando la página y deslizando el carrusel; un
+ * toque simple, que no desplaza el dedo, mueve el divisor a ese punto.
  */
 function Compare({
   before,
@@ -78,12 +78,18 @@ function Compare({
     <div>
       <div
         ref={ref}
-        className="relative aspect-square w-full touch-pan-y select-none overflow-hidden rounded-panel bg-ink-3 md:aspect-[4/5]"
+        className="relative aspect-square w-full select-none overflow-hidden rounded-panel bg-ink-3 md:aspect-[4/5]"
         onPointerDown={(event) => {
+          // Con mouse se arrastra desde cualquier punto. En touch no: el gesto
+          // queda libre para que el carrusel se siga deslizando de costado.
+          if (event.pointerType !== "mouse") return;
           setFromPointer(event.clientX);
-          // Con mouse se puede arrastrar desde cualquier punto. En touch no,
-          // porque compite con el scroll de la página.
-          if (event.pointerType === "mouse") startDrag(event);
+          startDrag(event);
+        }}
+        onClick={(event) => {
+          // El click solo llega si el dedo no se desplazó: un toque mueve el
+          // divisor, un deslizamiento pasa el carrusel.
+          if (!dragging.current) setFromPointer(event.clientX);
         }}
         onPointerMove={moveDrag}
         onPointerUp={endDrag}
