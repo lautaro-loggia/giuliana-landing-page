@@ -20,7 +20,7 @@ Copiá `.env.example` a `.env.local` y completá:
 | Variable | Qué hace |
 | --- | --- |
 | `NEXT_PUBLIC_CAL_LINK` | Enlace de Cal.com con formato `usuario/evento` (ej. `giulianazitella/llamada`). Sin esta variable la sección "Agendar" muestra un aviso de configuración. |
-| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio, usada en los metadatos Open Graph. |
+| `NEXT_PUBLIC_SITE_URL` | Opcional. URL pública del sitio, solo para los metadatos Open Graph. Si falta, se usa la URL que Vercel expone para el deploy. No la dejes definida y vacía en Vercel: borrala del proyecto o cargale el dominio real. |
 
 Datos de contacto, redes y textos de navegación: `src/lib/site.ts`.
 
