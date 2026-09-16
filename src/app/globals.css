@@ -1,26 +1,223 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/*
+  GZ Training design tokens
+  Theme lock: dark, whole page. One accent (coral, taken from Giuliana's brand bottle / logo).
+  Shape rule: panels and images 16-24px, buttons full pill, inputs 12px.
+*/
+@theme {
+  --color-ink: #0c0b0b;
+  --color-ink-2: #141213;
+  --color-ink-3: #1d1a1b;
+  --color-ink-4: #2a2627;
+  --color-bone: #f3efe9;
+  --color-bone-2: #d9d3cc;
+  --color-muted: #a39c96;
+  --color-coral: #e8694f;
+  --color-coral-2: #f28a73;
+  --color-coral-3: #b8462f;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), var(--font-inter), ui-sans-serif, sans-serif;
+
+  --radius-panel: 1.25rem;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-coral: 0 20px 60px -20px rgb(232 105 79 / 0.45);
+  --shadow-panel: 0 30px 80px -30px rgb(0 0 0 / 0.8);
+}
+
+/* Un solo lugar define el ancho de la página y sus márgenes laterales */
+@utility shell {
+  margin-inline: auto;
+  max-width: 1180px;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Carrusel a sangre por la derecha, pero alineado con la grilla por la izquierda */
+@utility shell-start {
+  padding-left: 1.25rem;
+  scroll-padding-left: 1.25rem;
+  @media (width >= 48rem) {
+    padding-left: max(2rem, calc((100vw - 1180px) / 2 + 2rem));
+    scroll-padding-left: max(2rem, calc((100vw - 1180px) / 2 + 2rem));
+  }
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Respaldo para cuando Lenis no corre (sin JS o movimiento reducido).
+   Con Lenis activo, su propia hoja de estilos toma el control del scroll. */
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-coral);
+  color: var(--color-ink);
+}
+
+/* Titulares: Archivo condensada, en caja baja. Contundente sin gritar en mayúsculas. */
+.display {
+  font-family: var(--font-display);
+  font-stretch: 68%;
+  font-weight: 900;
+  letter-spacing: -0.018em;
+  line-height: 1;
+}
+
+/* Misma familia y ancho, menos peso: sirve para bajar una línea de jerarquía */
+.display-soft {
+  font-weight: 450;
+}
+
+/* Subtítulos y elementos de interfaz: Inter, para que se lean rápido */
+.display-wide {
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+}
+
+/* La marca: Inter en su peso más alto, bien ajustada */
+.wordmark {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-coral);
+}
+
+/* Focus ring, keyboard only */
+:focus-visible {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Hairline that uses the page's own tint */
+.hairline {
+  border-color: rgb(255 255 255 / 0.08);
+}
+
+/* Fine grain on a fixed, inert layer */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Tarjetas de la sección "La app".
+   En mobile se tiñe la que pasa por el centro de la pantalla mientras se
+   scrollea. En desktop manda el índice: solo la primera va en coral. */
+.bento-card {
+  border: 1px solid rgb(255 255 255 / 0.08);
+  background: var(--color-ink-2);
+  color: var(--color-bone);
+  transition:
+    background-color 0.7s cubic-bezier(0.33, 1, 0.68, 1),
+    border-color 0.7s cubic-bezier(0.33, 1, 0.68, 1),
+    color 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.bento-card .bento-icon {
+  color: var(--color-coral);
+  transition: color 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.bento-card .bento-body {
+  color: var(--color-bone-2);
+  transition: color 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.bento-card[data-active="true"] {
+  background: var(--color-coral);
+  border-color: var(--color-coral);
+  color: var(--color-ink);
+}
+
+.bento-card[data-active="true"] .bento-icon,
+.bento-card[data-active="true"] .bento-body {
+  color: var(--color-ink);
+}
+
+.bento-card[data-active="true"] .bento-body {
+  color: rgb(12 11 11 / 0.8);
+}
+
+@media (width >= 48rem) {
+  /* El scroll deja de decidir: vuelve el esquema fijo */
+  .bento-card[data-active="true"] {
+    background: var(--color-ink-2);
+    border-color: rgb(255 255 255 / 0.08);
+    color: var(--color-bone);
+  }
+
+  .bento-card[data-active="true"] .bento-icon {
+    color: var(--color-coral);
+  }
+
+  .bento-card[data-active="true"] .bento-body {
+    color: var(--color-bone-2);
+  }
+
+  .bento-card[data-featured="true"] {
+    background: var(--color-coral);
+    border-color: var(--color-coral);
+    color: var(--color-ink);
+  }
+
+  .bento-card[data-featured="true"] .bento-icon {
+    color: var(--color-ink);
+  }
+
+  .bento-card[data-featured="true"] .bento-body {
+    color: rgb(12 11 11 / 0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-card,
+  .bento-card .bento-icon,
+  .bento-card .bento-body {
+    transition: none;
+  }
+}
+
+/* Cal.com embed container */
+.cal-frame iframe {
+  border-radius: 1rem;
 }

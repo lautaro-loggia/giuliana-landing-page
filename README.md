@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GZ Training · Landing de Giuliana Zitella
 
-## Getting Started
+Landing page en Next.js 16 (App Router, Turbopack), Tailwind CSS v4 y [Motion](https://motion.dev) para animaciones. Tema oscuro y un solo acento coral tomado de la identidad de GZ Training.
 
-First, run the development server:
+Tipografía en dos niveles: Archivo variable para los titulares (clase `.display`, condensada al 68% de ancho y peso 900; `.display-soft` baja a 450 para contrastar líneas dentro de un mismo titular) e Inter para cuerpo de texto, subtítulos, interfaz y la marca (clases `.display-wide` y `.wordmark`). El ancho máximo de la página vive en una sola clase, `.shell` en `src/app/globals.css`.
+
+## Correr el proyecto
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Configuración
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copiá `.env.example` a `.env.local` y completá:
 
-## Learn More
+| Variable | Qué hace |
+| --- | --- |
+| `NEXT_PUBLIC_CAL_LINK` | Enlace de Cal.com con formato `usuario/evento` (ej. `giulianazitella/llamada`). Sin esta variable la sección "Agendar" muestra un aviso de configuración. |
+| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio, usada en los metadatos Open Graph. |
 
-To learn more about Next.js, take a look at the following resources:
+Datos de contacto, redes y textos de navegación: `src/lib/site.ts`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contenido a reemplazar antes de publicar
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Testimonios y cambios físicos** (`src/lib/content.ts`): el primer caso es real (proceso de Giuliana). Los casos con `sample: true` son ejemplos de estructura y se muestran etiquetados como "Testimonio de ejemplo". Cargar nombre, texto y, si hay, fotos `before` / `after` en `public/images`.
+- **Textos sobre Giuliana** (`src/components/About.tsx`, `src/components/Faq.tsx`): revisar afirmaciones (disciplinas, embarazo, El Talar) con ella.
+- **Planes** (`src/components/Services.tsx`): agregar precios si se quieren mostrar.
 
-## Deploy on Vercel
+## Fotos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Las fotos en `public/images` provienen del Instagram de Giuliana (@giulianazitella) y se usan con su permiso como dueña del sitio. En `assets/instagram-extra` hay más fotos descargadas que no se usan en la página, listas para intercambiar.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estructura
+
+```
+src/app/            layout (fuente, metadatos) y página principal
+src/components/     una sección por archivo: Nav, Hero, PhotoMarquee, Services,
+                    Method, About, AppSection, Results, Booking, Faq, Footer
+src/components/motion/Reveal.tsx   wrapper de aparición al hacer scroll
+src/lib/site.ts     constantes del sitio (WhatsApp, Instagram, Cal, navegación)
+src/lib/content.ts  testimonios y preguntas frecuentes
+```
+
+## Animaciones
+
+Todas las animaciones respetan `prefers-reduced-motion`. Hero con stagger y parallax por scroll, línea de progreso en "Así trabajamos", comparador antes/después arrastrable, acordeón en preguntas, menú móvil con AnimatePresence.
+
+## Deploy
+
+Proyecto estático listo para Vercel: `vercel deploy`. Recordá cargar las variables de entorno en el proyecto de Vercel.
