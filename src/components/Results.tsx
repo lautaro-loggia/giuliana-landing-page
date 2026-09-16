@@ -12,7 +12,16 @@ import { ArrowLeft, ArrowRight, Quotes } from "@phosphor-icons/react";
 import { cases, type Case } from "@/lib/content";
 import { Reveal } from "@/components/motion/Reveal";
 
-/** Two photos, one draggable divider. Position lives in a motion value, never in React state. */
+/**
+ * Dos fotos y un divisor que se arrastra. La posición vive en un motion value,
+ * nunca en el estado de React, así el arrastre no dispara renders.
+ *
+ * En touch el arrastre va sobre el tirador, que lleva touch-action: none. Si el
+ * arrastre se tomara desde toda la foto, el navegador empieza a hacer scroll
+ * vertical, cancela el puntero y el gesto se corta a la mitad. Tocar en
+ * cualquier punto de la foto también mueve el divisor, así que en el celular se
+ * puede usar sin arrastrar y la página sigue scrolleando con normalidad.
+ */
 function Compare({
   before,
   after,
@@ -21,6 +30,7 @@ function Compare({
   after: NonNullable<Case["after"]>;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
   const x = useMotionValue(0.5);
   const clip = useTransform(
     x,
@@ -36,18 +46,48 @@ function Compare({
     x.set(v);
   };
 
+  const startDrag = (event: React.PointerEvent) => {
+    dragging.current = true;
+    // La captura es lo que mantiene vivo el gesto cuando el dedo se va del
+    // tirador. Si el navegador la rechaza, el contenedor sigue recibiendo los
+    // movimientos mientras el dedo esté sobre la foto.
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // sin captura: el arrastre sigue funcionando dentro de la foto
+    }
+  };
+
+  const moveDrag = (event: React.PointerEvent) => {
+    if (!dragging.current) return;
+    setFromPointer(event.clientX);
+  };
+
+  const endDrag = (event: React.PointerEvent) => {
+    dragging.current = false;
+    try {
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+    } catch {
+      // el puntero ya no existe: no hay nada que liberar
+    }
+  };
+
   return (
     <div>
       <div
         ref={ref}
-        className="relative aspect-square w-full select-none overflow-hidden rounded-panel bg-ink-3 md:aspect-[4/5] touch-pan-y"
-        onPointerDown={(e) => {
-          (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
-          setFromPointer(e.clientX);
+        className="relative aspect-square w-full touch-pan-y select-none overflow-hidden rounded-panel bg-ink-3 md:aspect-[4/5]"
+        onPointerDown={(event) => {
+          setFromPointer(event.clientX);
+          // Con mouse se puede arrastrar desde cualquier punto. En touch no,
+          // porque compite con el scroll de la página.
+          if (event.pointerType === "mouse") startDrag(event);
         }}
-        onPointerMove={(e) => {
-          if (e.buttons === 1) setFromPointer(e.clientX);
-        }}
+        onPointerMove={moveDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
       >
         <Image
           src={after.src}
@@ -70,12 +110,23 @@ function Compare({
 
         <motion.div
           style={{ left }}
-          className="absolute inset-y-0 -ml-px w-0.5 bg-bone/90"
+          className="pointer-events-none absolute inset-y-0 -ml-px w-0.5 bg-bone/90"
         >
-          <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-bone text-ink shadow-panel">
+          <button
+            type="button"
+            aria-label="Arrastrá para comparar las dos fotos"
+            onPointerDown={(event) => {
+              event.stopPropagation();
+              startDrag(event);
+            }}
+            onPointerMove={moveDrag}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            className="pointer-events-auto absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize touch-none items-center justify-center rounded-full bg-bone text-ink shadow-panel"
+          >
             <ArrowLeft size={12} weight="bold" />
             <ArrowRight size={12} weight="bold" />
-          </span>
+          </button>
         </motion.div>
 
         <input
