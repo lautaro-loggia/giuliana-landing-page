@@ -2,43 +2,61 @@ import Image from "next/image";
 import { Check } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
-
-const online = {
-  title: "Plan de entrenamiento online",
-  lead:
-    "Un plan de fuerza para tu objetivo y tu nivel, con seguimiento semanal desde la app.",
-  items: [
-    "Plan mensual personalizado",
-    "Video y técnica de cada ejercicio",
-    "Registro de series y cargas",
-    "Check-in semanal con ajustes",
-    "Devoluciones de entrenamiento y nutrición",
-  ],
-};
-
-const presencial = {
-  title: "Entrenamiento presencial",
-  lead: "Sesiones 1 a 1 o en grupo reducido en El Talar.",
-  items: [
-    "Individual o grupo reducido",
-    "Técnica de levantamientos",
-    "Planificación por ciclos",
-    "Combinable con el online",
-  ],
-};
+import { plans, presencial, type Plan } from "@/lib/content";
 
 function Items({ items }: { items: string[] }) {
   return (
-    <ul className="mt-4 space-y-2">
+    <ul className="mt-4 space-y-2.5">
       {items.map((it) => (
         <li key={it} className="flex items-start gap-2.5 text-sm text-bone">
-          <span className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-coral/15 text-coral">
+          <span className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-lilac/15 text-lilac">
             <Check size={10} weight="bold" />
           </span>
           {it}
         </li>
       ))}
     </ul>
+  );
+}
+
+function PlanCard({ plan }: { plan: Plan }) {
+  return (
+    <article
+      className={`relative flex h-full flex-col rounded-panel border p-6 md:p-8 ${
+        plan.featured
+          ? "border-lilac/60 bg-gradient-to-b from-lilac/15 to-ink-2 shadow-lilac"
+          : "border-white/8 bg-ink-2"
+      }`}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <h3 className="display text-4xl md:text-5xl">{plan.name}</h3>
+        {plan.featured && (
+          <span className="rounded-full bg-lilac px-3 py-1 text-xs font-semibold text-ink">
+            Recomendado
+          </span>
+        )}
+      </div>
+      <p className="mt-3 max-w-[40ch] text-sm leading-relaxed text-bone-2 md:text-base">
+        {plan.lead}
+      </p>
+      <div className="mt-6 border-t hairline pt-5">
+        {plan.includesLabel && (
+          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-lilac">
+            {plan.includesLabel}
+          </p>
+        )}
+        <Items items={plan.items} />
+      </div>
+      <div className="mt-auto pt-8">
+        <ButtonLink
+          href="#agendar"
+          variant={plan.featured ? "primary" : "outline"}
+          className="w-full sm:w-auto"
+        >
+          {plan.cta}
+        </ButtonLink>
+      </div>
+    </article>
   );
 }
 
@@ -49,63 +67,44 @@ export function Services() {
         <Reveal>
           <p className="eyebrow">Planes</p>
           <h2 className="display mt-2 max-w-2xl text-4xl sm:text-5xl lg:text-[3.4rem]">
-            Dos formas de entrenar conmigo
+            Elegí cómo querés entrenar
           </h2>
+          <p className="mt-4 max-w-[58ch] leading-relaxed text-bone-2">
+            Dos niveles de acompañamiento para el plan online. Si no sabés cuál te
+            conviene, lo vemos en la llamada.
+          </p>
         </Reveal>
 
-        <div className="mt-8 grid grid-cols-1 items-stretch gap-4 lg:grid-cols-12 lg:gap-5">
-          {/* Foto vertical a la izquierda: acompaña al texto sin estirar la tarjeta */}
-          <Reveal className="lg:col-span-7">
-            <article className="flex h-full flex-col overflow-hidden rounded-panel border border-white/8 bg-ink-2 sm:flex-row">
-              <div className="relative aspect-[16/10] w-full shrink-0 sm:aspect-auto sm:w-[50%]">
-                <Image
-                  src="/images/plates-pro.jpg"
-                  alt="Giuliana apoyada sobre una torre de discos en el box"
-                  fill
-                  sizes="(min-width: 1024px) 24vw, 100vw"
-                  className="object-cover object-[42%_35%]"
-                />
-              </div>
-              <div className="flex flex-1 flex-col justify-center p-5 md:p-6">
-                <h3 className="display-wide text-xl md:text-2xl">{online.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-bone-2">{online.lead}</p>
-                <Items items={online.items} />
-                <div className="pt-6">
-                  <ButtonLink href="#agendar">Quiero mi plan</ButtonLink>
-                </div>
-              </div>
-            </article>
-          </Reveal>
+        <div className="mt-8 grid grid-cols-1 items-stretch gap-4 md:grid-cols-2 lg:gap-5">
+          {plans.map((plan, i) => (
+            <Reveal key={plan.id} delay={0.08 * i}>
+              <PlanCard plan={plan} />
+            </Reveal>
+          ))}
 
-          {/* Foto apaisada arriba: las cuatro alumnas entran en el cuadro */}
-          <Reveal delay={0.08} className="lg:col-span-5">
-            <article className="flex h-full flex-col overflow-hidden rounded-panel border border-white/8 bg-ink-2">
-              <div className="relative aspect-[16/9] w-full shrink-0 sm:aspect-auto sm:min-h-[180px] sm:flex-1">
+          {/* Presencial: a lo ancho, con la foto del grupo a la izquierda */}
+          <Reveal delay={0.16} className="md:col-span-2">
+            <article className="flex h-full flex-col overflow-hidden rounded-panel border border-white/8 bg-ink-2 md:flex-row">
+              <div className="relative aspect-[16/9] w-full shrink-0 md:aspect-auto md:min-h-[300px] md:w-[46%]">
                 <Image
-                  src="/images/alumnas-group.jpg"
-                  alt="Giuliana con tres alumnas después de una sesión en el box"
+                  src="/images/team-bearfit.jpg"
+                  alt="Giuliana con su equipo de entrenamiento en una competencia"
                   fill
-                  sizes="(min-width: 1024px) 38vw, 100vw"
-                  className="object-cover object-[50%_26%]"
+                  sizes="(min-width: 768px) 46vw, 100vw"
+                  className="object-cover object-[50%_30%]"
                 />
               </div>
-              <div className="flex flex-col p-5 md:p-6">
+              <div className="flex flex-1 flex-col justify-center p-6 md:p-8">
                 <h3 className="display-wide text-xl md:text-2xl">{presencial.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-bone-2">{presencial.lead}</p>
                 <Items items={presencial.items} />
                 <div className="pt-6">
-                  <ButtonLink href="#agendar">Quiero mi lugar</ButtonLink>
+                  <ButtonLink href="#agendar" variant="outline">
+                    Quiero mi lugar
+                  </ButtonLink>
                 </div>
               </div>
             </article>
-          </Reveal>
-
-          <Reveal delay={0.16} className="lg:col-span-12">
-            <p className="rounded-panel border border-coral/25 bg-coral/10 px-5 py-4 text-sm leading-relaxed text-bone-2 md:text-center">
-              <span className="font-semibold text-bone">¿Las dos? También se puede.</span>{" "}
-              Entrenás presencial algunos días y seguís el plan online el resto de la
-              semana. Lo definimos juntas en la llamada.
-            </p>
           </Reveal>
         </div>
       </div>

@@ -136,15 +136,15 @@ export function CalPreview() {
         <p className="display-wide mt-1 text-xl">Charla inicial</p>
         <ul className="mt-5 space-y-3 text-sm text-bone-2">
           <li className="flex items-center gap-2.5">
-            <Clock size={16} className="shrink-0 text-coral" />
+            <Clock size={16} className="shrink-0 text-lilac" />
             20 minutos
           </li>
           <li className="flex items-center gap-2.5">
-            <VideoCamera size={16} className="shrink-0 text-coral" />
+            <VideoCamera size={16} className="shrink-0 text-lilac" />
             Videollamada
           </li>
           <li className="flex items-center gap-2.5">
-            <CalendarBlank size={16} className="shrink-0 text-coral" />
+            <CalendarBlank size={16} className="shrink-0 text-lilac" />
             Argentina, GMT-3
           </li>
         </ul>
@@ -164,7 +164,7 @@ export function CalPreview() {
               onClick={() => shiftMonth(-1)}
               disabled={monthOffset === 0}
               aria-label="Mes anterior"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-coral hover:text-coral disabled:pointer-events-none disabled:opacity-30"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-lilac hover:text-lilac disabled:pointer-events-none disabled:opacity-30"
             >
               <CaretLeft size={14} weight="bold" />
             </button>
@@ -172,7 +172,7 @@ export function CalPreview() {
               type="button"
               onClick={() => shiftMonth(1)}
               aria-label="Mes siguiente"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-coral hover:text-coral"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-lilac hover:text-lilac"
             >
               <CaretRight size={14} weight="bold" />
             </button>
@@ -206,7 +206,7 @@ export function CalPreview() {
                 aria-pressed={isSelected}
                 className={`aspect-square rounded-lg text-sm transition-colors ${
                   isSelected
-                    ? "bg-coral font-semibold text-ink"
+                    ? "bg-lilac font-semibold text-ink"
                     : free
                       ? "bg-ink-3 text-bone hover:bg-ink-4"
                       : "text-muted/40"
@@ -238,7 +238,7 @@ export function CalPreview() {
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-coral px-4 text-sm font-semibold text-ink shadow-coral transition-transform duration-200 active:scale-[0.98]"
+              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-lilac px-4 text-sm font-semibold text-ink shadow-lilac transition-transform duration-200 active:scale-[0.98]"
             >
               <WhatsappLogo size={16} weight="fill" /> Confirmar
             </a>
@@ -263,7 +263,7 @@ export function CalPreview() {
                     className={`h-10 w-full rounded-lg border text-sm font-medium transition-colors ${
                       busy
                         ? "border-white/5 text-muted/40"
-                        : "border-white/15 text-bone hover:border-coral hover:text-coral"
+                        : "border-white/15 text-bone hover:border-lilac hover:text-lilac"
                     }`}
                   >
                     {busy ? "Ocupado" : `${s} hs`}

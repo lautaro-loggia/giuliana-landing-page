@@ -15,8 +15,8 @@ export function Booking() {
       cal("ui", {
         theme: "dark",
         cssVarsPerTheme: {
-          light: { "cal-brand": "#e8694f" },
-          dark: { "cal-brand": "#e8694f" },
+          light: { "cal-brand": "#b8a1f3" },
+          dark: { "cal-brand": "#b8a1f3" },
         },
         hideEventTypeDetails: false,
         layout: "month_view",
@@ -34,7 +34,7 @@ export function Booking() {
             20 minutos
           </h2>
           <p className="mt-6 max-w-[56ch] text-bone-2 leading-relaxed md:text-lg">
-            Me contás qué buscás y cómo es tu semana, y vemos juntas por dónde
+            Me contás qué buscás y cómo es tu semana, y vemos por dónde
             empezar. Sin compromiso. Elegí el día y la hora que te quede cómodo.
           </p>
         </Reveal>
@@ -67,7 +67,7 @@ export function Booking() {
             href={site.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 font-semibold text-bone underline decoration-coral decoration-2 underline-offset-4 hover:text-coral"
+            className="inline-flex items-center gap-1.5 font-semibold text-bone underline decoration-lilac decoration-2 underline-offset-4 hover:text-lilac"
           >
             <WhatsappLogo size={16} /> WhatsApp
           </a>

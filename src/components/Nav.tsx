@@ -12,6 +12,7 @@ import {
 import { List, X } from "@phosphor-icons/react";
 import { nav, site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/Button";
+import { LogoWordmark } from "@/components/ui/Logo";
 
 export function Nav() {
   const [solid, setSolid] = useState(false);
@@ -42,10 +43,11 @@ export function Nav() {
         >
           <Link
             href="#top"
-            className="wordmark text-lg text-bone"
+            className="text-lilac transition-colors hover:text-lilac-2"
             aria-label={`${site.name}, inicio`}
           >
-            GZ<span className="text-coral">.</span>Training
+            {/* Sin "TRAINING": a esta altura no se llega a leer */}
+            <LogoWordmark tagline={false} className="h-7 w-auto md:h-8" />
           </Link>
 
           <ul className="hidden items-center gap-8 lg:flex">

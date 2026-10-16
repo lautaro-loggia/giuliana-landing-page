@@ -6,11 +6,10 @@ export const site = {
   instagramHandle: "@giulianazitella",
   whatsapp: "https://wa.me/5491161740977",
   whatsappLabel: "+54 9 11 6174-0977",
-  location: "El Talar, Buenos Aires",
   // Cal.com: set NEXT_PUBLIC_CAL_LINK to "usuario/evento" (ej. "giulianazitella/llamada")
   calLink: process.env.NEXT_PUBLIC_CAL_LINK ?? "",
   calNamespace: "llamada",
-  ctaLabel: "Entrenemos juntas",
+  ctaLabel: "Quiero empezar",
 };
 
 export const nav = [

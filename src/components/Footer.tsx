@@ -1,17 +1,19 @@
 import Link from "next/link";
 import { InstagramLogo, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { nav, site } from "@/lib/site";
+import { LogoWordmark } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
     <footer className="border-t hairline">
       <div className="shell grid grid-cols-1 gap-10 py-14 md:grid-cols-12">
         <div className="md:col-span-5">
-          <p className="wordmark text-2xl">
-            GZ<span className="text-coral">.</span>Training
-          </p>
+          <LogoWordmark
+            title={site.name}
+            className="h-20 w-auto text-lilac [--logo-word:var(--color-bone)]"
+          />
           <p className="mt-3 max-w-[36ch] text-sm text-bone-2">
-            {site.coach}, {site.role.toLowerCase()}. Entrenamiento de fuerza online y presencial en {site.location}.
+            {site.coach}, {site.role.toLowerCase()}. Entrenamiento de fuerza online y presencial, para cualquier persona que quiera ganar fuerza.
           </p>
         </div>
 

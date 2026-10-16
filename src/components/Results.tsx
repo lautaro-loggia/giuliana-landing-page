@@ -185,7 +185,7 @@ function CaseCard({ c }: { c: Case }) {
 
         <div className="flex h-full flex-col justify-between gap-5 md:gap-8">
           <div>
-            <Quotes size={24} weight="fill" className="text-coral" />
+            <Quotes size={24} weight="fill" className="text-lilac" />
             <p className="mt-3 text-base leading-snug text-bone md:mt-4 md:text-xl">
               {c.quote}
             </p>
@@ -242,7 +242,7 @@ export function Results() {
               type="button"
               onClick={() => go(-1)}
               aria-label="Anterior"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-coral hover:text-coral active:scale-[0.98]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
             >
               <ArrowLeft size={18} weight="bold" />
             </button>
@@ -250,7 +250,7 @@ export function Results() {
               type="button"
               onClick={() => go(1)}
               aria-label="Siguiente"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-coral hover:text-coral active:scale-[0.98]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
             >
               <ArrowRight size={18} weight="bold" />
             </button>

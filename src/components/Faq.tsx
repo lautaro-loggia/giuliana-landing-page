@@ -42,7 +42,7 @@ export function Faq() {
                           animate={{ rotate: isOpen ? 45 : 0 }}
                           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                           className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${
-                            isOpen ? "border-coral text-coral" : "border-white/15 text-bone"
+                            isOpen ? "border-lilac text-lilac" : "border-white/15 text-bone"
                           }`}
                         >
                           <Plus size={16} weight="bold" />

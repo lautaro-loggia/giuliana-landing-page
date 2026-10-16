@@ -90,7 +90,7 @@ export function Hero() {
             <br />
             <span className="display-soft">cuestión de ganas.</span>
             <br />
-            <span className="text-coral">Es cuestión de plan.</span>
+            <span className="text-lilac">Es cuestión de plan.</span>
           </motion.h1>
 
           <motion.p
@@ -98,7 +98,7 @@ export function Hero() {
             className="mt-7 max-w-[34rem] text-base leading-relaxed text-bone-2 md:text-lg"
           >
             Entrenamiento de fuerza online o presencial, con un plan a tu medida
-            y seguimiento semanal para que progreses de verdad.
+            y seguimiento desde la app para que progreses de verdad.
           </motion.p>
 
           <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-3">

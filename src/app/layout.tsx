@@ -55,13 +55,12 @@ export const metadata: Metadata = {
     template: "%s | GZ Training",
   },
   description:
-    "Entrená con Giuliana Zitella, fitness coach y atleta de CrossFit. Planes de fuerza online y presencial en El Talar, con seguimiento semanal desde la app.",
+    "Entrená con Giuliana Zitella, fitness coach y atleta de CrossFit. Planes de fuerza Starter y Premium, online o presencial, con seguimiento desde la app.",
   keywords: [
     "personal trainer",
     "entrenamiento online",
     "entrenamiento de fuerza",
     "CrossFit",
-    "El Talar",
     "Buenos Aires",
     "Giuliana Zitella",
   ],
@@ -71,14 +70,14 @@ export const metadata: Metadata = {
     siteName: "GZ Training",
     title: "Giuliana Zitella | Entrenamiento de fuerza online y presencial",
     description:
-      "Planes de fuerza a medida, seguimiento semanal en la app y una coach que compite. Online o presencial en El Talar.",
+      "Planes de fuerza a medida, seguimiento en la app y una coach que compite. Online o presencial.",
     images: [{ url: "/images/comp-smile.jpg", width: 1440, height: 960 }],
   },
   robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0b0b",
+  themeColor: "#0d0b10",
   width: "device-width",
   initialScale: 1,
 };

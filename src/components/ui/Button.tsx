@@ -7,9 +7,9 @@ const base =
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-[transform,background-color,color,border-color] duration-200 ease-out active:scale-[0.98] select-none";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-coral text-ink hover:bg-coral-2 shadow-coral",
-  ghost: "text-bone hover:text-coral",
-  outline: "border border-white/15 text-bone hover:border-coral hover:text-coral",
+  primary: "bg-lilac text-ink hover:bg-lilac-2 shadow-lilac",
+  ghost: "text-bone hover:text-lilac",
+  outline: "border border-white/15 text-bone hover:border-lilac hover:text-lilac",
 };
 
 const sizes = {

@@ -3,20 +3,21 @@
 
 /*
   GZ Training design tokens
-  Theme lock: dark, whole page. One accent (coral, taken from Giuliana's brand bottle / logo).
+  Theme lock: dark, whole page. One accent (lilac, the color Giuliana chose for her brand and logo).
+  Neutrals lean slightly violet so they sit with the accent.
   Shape rule: panels and images 16-24px, buttons full pill, inputs 12px.
 */
 @theme {
-  --color-ink: #0c0b0b;
-  --color-ink-2: #141213;
-  --color-ink-3: #1d1a1b;
-  --color-ink-4: #2a2627;
-  --color-bone: #f3efe9;
-  --color-bone-2: #d9d3cc;
-  --color-muted: #a39c96;
-  --color-coral: #e8694f;
-  --color-coral-2: #f28a73;
-  --color-coral-3: #b8462f;
+  --color-ink: #0d0b10;
+  --color-ink-2: #15121a;
+  --color-ink-3: #1e1a24;
+  --color-ink-4: #2b2632;
+  --color-bone: #f2eff6;
+  --color-bone-2: #d8d3df;
+  --color-muted: #a29cab;
+  --color-lilac: #b8a1f3;
+  --color-lilac-2: #cbb9f8;
+  --color-lilac-3: #8e72dd;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-archivo), var(--font-inter), ui-sans-serif, sans-serif;
@@ -25,7 +26,7 @@
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --shadow-coral: 0 20px 60px -20px rgb(232 105 79 / 0.45);
+  --shadow-lilac: 0 20px 60px -20px rgb(184 161 243 / 0.4);
   --shadow-panel: 0 30px 80px -30px rgb(0 0 0 / 0.8);
 }
 
@@ -76,7 +77,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-coral);
+  background: var(--color-lilac);
   color: var(--color-ink);
 }
 
@@ -101,25 +102,17 @@ body {
   line-height: 1.15;
 }
 
-/* La marca: Inter en su peso más alto, bien ajustada */
-.wordmark {
-  font-family: var(--font-sans);
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1;
-}
-
 .eyebrow {
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-coral);
+  color: var(--color-lilac);
 }
 
 /* Focus ring, keyboard only */
 :focus-visible {
-  outline: 2px solid var(--color-coral);
+  outline: 2px solid var(--color-lilac);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -142,7 +135,7 @@ body {
 
 /* Tarjetas de la sección "La app".
    En mobile se tiñe la que pasa por el centro de la pantalla mientras se
-   scrollea. En desktop manda el índice: solo la primera va en coral. */
+   scrollea. En desktop manda el índice: solo la primera va en lilac. */
 .bento-card {
   border: 1px solid rgb(255 255 255 / 0.08);
   background: var(--color-ink-2);
@@ -154,7 +147,7 @@ body {
 }
 
 .bento-card .bento-icon {
-  color: var(--color-coral);
+  color: var(--color-lilac);
   transition: color 0.7s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
@@ -164,8 +157,8 @@ body {
 }
 
 .bento-card[data-active="true"] {
-  background: var(--color-coral);
-  border-color: var(--color-coral);
+  background: var(--color-lilac);
+  border-color: var(--color-lilac);
   color: var(--color-ink);
 }
 
@@ -175,7 +168,7 @@ body {
 }
 
 .bento-card[data-active="true"] .bento-body {
-  color: rgb(12 11 11 / 0.8);
+  color: rgb(13 11 16 / 0.8);
 }
 
 @media (width >= 48rem) {
@@ -187,7 +180,7 @@ body {
   }
 
   .bento-card[data-active="true"] .bento-icon {
-    color: var(--color-coral);
+    color: var(--color-lilac);
   }
 
   .bento-card[data-active="true"] .bento-body {
@@ -195,8 +188,8 @@ body {
   }
 
   .bento-card[data-featured="true"] {
-    background: var(--color-coral);
-    border-color: var(--color-coral);
+    background: var(--color-lilac);
+    border-color: var(--color-lilac);
     color: var(--color-ink);
   }
 
@@ -205,7 +198,7 @@ body {
   }
 
   .bento-card[data-featured="true"] .bento-body {
-    color: rgb(12 11 11 / 0.8);
+    color: rgb(13 11 16 / 0.8);
   }
 }
 

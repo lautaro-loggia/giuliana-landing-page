@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 
 const stats = [
   { label: "Modalidad", value: "Online y presencial" },
-  { label: "Base", value: site.location },
+  { label: "Planes", value: "Starter y Premium" },
   { label: "Disciplinas", value: "CrossFit y levantamiento olímpico" },
 ];
 
@@ -52,13 +52,13 @@ export function About() {
             <div className="mt-8 space-y-5 leading-relaxed text-bone-2 md:text-lg">
               <p>
                 Soy {site.coach}, preparadora física y atleta de CrossFit y
-                levantamiento olímpico. Entreno mujeres que quieren sentirse
+                levantamiento olímpico. Entreno personas que quieren sentirse
                 fuertes, no solo verse distintas.
               </p>
               <p>
                 Entrené durante todo mi embarazo. Sé lo que es adaptar un plan a
                 la vida real: al trabajo, al cansancio, a los días que no salen.
-                Por eso cada plan que armo se revisa cada semana, no cada tres
+                Por eso cada plan que armo se revisa seguido, no cada tres
                 meses.
               </p>
             </div>

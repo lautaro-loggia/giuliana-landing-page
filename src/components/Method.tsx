@@ -23,7 +23,7 @@ const steps = [
   {
     title: "Ajustamos",
     body:
-      "Reviso tus registros cada semana y adapto el plan a cómo venís. Si algo no funciona, cambia.",
+      "Reviso tus registros y adapto el plan a cómo venís: cada semana en Premium, cada mes en Starter. Si algo no funciona, cambia.",
   },
 ];
 
@@ -49,7 +49,7 @@ export function Method() {
                 trabajamos
               </h2>
               <p className="mt-6 max-w-[38ch] text-bone-2 leading-relaxed">
-                Sin fórmulas mágicas. Un plan que se ajusta a tu vida y una coach que lo revisa cada semana.
+                Sin fórmulas mágicas. Un plan que se ajusta a tu vida y una coach que lo revisa de cerca.
               </p>
             </Reveal>
           </div>
@@ -60,7 +60,7 @@ export function Method() {
           <motion.div
             aria-hidden
             style={{ scaleY: reduce ? 1 : scaleY, originY: 0 }}
-            className="absolute left-[11px] top-2 bottom-2 w-px bg-coral"
+            className="absolute left-[11px] top-2 bottom-2 w-px bg-lilac"
           />
           <ol ref={ref} className="space-y-14 md:space-y-20">
             {steps.map((s, i) => (
@@ -68,9 +68,9 @@ export function Method() {
                 <Reveal amount={0.5} className="contents">
                   <span
                     aria-hidden
-                    className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-coral/50 bg-ink"
+                    className="absolute left-0 top-1.5 flex h-6 w-6 items-center justify-center rounded-full border border-lilac/50 bg-ink"
                   >
-                    <span className="h-2 w-2 rounded-full bg-coral" />
+                    <span className="h-2 w-2 rounded-full bg-lilac" />
                   </span>
                   <h3 className="display-wide text-3xl md:text-4xl">{s.title}</h3>
                   <p className="mt-3 max-w-[48ch] text-bone-2 leading-relaxed md:text-lg">{s.body}</p>
