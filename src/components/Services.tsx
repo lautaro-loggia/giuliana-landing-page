@@ -3,6 +3,7 @@ import { Check } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { plans, presencial, type Plan } from "@/lib/content";
+import { whatsappLink } from "@/lib/site";
 
 function Items({ items }: { items: string[] }) {
   return (
@@ -25,13 +26,13 @@ function PlanCard({ plan }: { plan: Plan }) {
       className={`relative flex h-full flex-col rounded-panel border p-6 md:p-8 ${
         plan.featured
           ? "border-lilac/60 bg-gradient-to-b from-lilac/15 to-ink-2 shadow-lilac"
-          : "border-white/8 bg-ink-2"
+          : "border-line/8 bg-ink-2"
       }`}
     >
       <div className="flex items-center justify-between gap-3">
         <h3 className="display text-4xl md:text-5xl">{plan.name}</h3>
         {plan.featured && (
-          <span className="rounded-full bg-lilac px-3 py-1 text-xs font-semibold text-ink">
+          <span className="rounded-full bg-lilac px-3 py-1 text-xs font-semibold text-on-lilac">
             Recomendado
           </span>
         )}
@@ -49,7 +50,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       </div>
       <div className="mt-auto pt-8">
         <ButtonLink
-          href="#agendar"
+          href={whatsappLink(plan.whatsappMessage)}
           variant={plan.featured ? "primary" : "outline"}
           className="w-full sm:w-auto"
         >
@@ -67,11 +68,11 @@ export function Services() {
         <Reveal>
           <p className="eyebrow">Planes</p>
           <h2 className="display mt-2 max-w-2xl text-4xl sm:text-5xl lg:text-[3.4rem]">
-            Elegí cómo querés entrenar
+            Elegí cómo querés <em className="accent">entrenar</em>
           </h2>
           <p className="mt-4 max-w-[58ch] leading-relaxed text-bone-2">
             Dos niveles de acompañamiento para el plan online. Si no sabés cuál te
-            conviene, lo vemos en la llamada.
+            conviene, escribime y lo charlamos.
           </p>
         </Reveal>
 
@@ -84,7 +85,7 @@ export function Services() {
 
           {/* Presencial: a lo ancho, con la foto del grupo a la izquierda */}
           <Reveal delay={0.16} className="md:col-span-2">
-            <article className="flex h-full flex-col overflow-hidden rounded-panel border border-white/8 bg-ink-2 md:flex-row">
+            <article className="flex h-full flex-col overflow-hidden rounded-panel border border-line/8 bg-ink-2 md:flex-row">
               <div className="relative aspect-[16/9] w-full shrink-0 md:aspect-auto md:min-h-[300px] md:w-[46%]">
                 <Image
                   src="/images/team-bearfit.jpg"
@@ -99,7 +100,7 @@ export function Services() {
                 <p className="mt-2 text-sm leading-relaxed text-bone-2">{presencial.lead}</p>
                 <Items items={presencial.items} />
                 <div className="pt-6">
-                  <ButtonLink href="#agendar" variant="outline">
+                  <ButtonLink href={whatsappLink(presencial.whatsappMessage)} variant="outline">
                     Quiero mi lugar
                   </ButtonLink>
                 </div>

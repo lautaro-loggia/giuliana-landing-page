@@ -1,10 +1,11 @@
+import { whatsappMessages } from "@/lib/site";
+
 /**
  * Contenido editable de la sección "Resultados".
  *
- * El primer caso es real (el proceso de la propia Giuliana, con fotos suyas).
- * Los casos marcados con `sample: true` son EJEMPLOS de estructura y deben
- * reemplazarse por testimonios reales (nombre, texto y, si hay, fotos antes/después
- * en /public/images). Mientras sean ejemplos, la página los muestra etiquetados.
+ * Todos los casos son reales: una alumna con su antes y después, el proceso de
+ * la propia Giuliana y el primer mensaje de otra alumna.
+ * Un caso con `sample: true` se muestra etiquetado como ejemplo.
  */
 export type Case = {
   id: string;
@@ -23,6 +24,24 @@ export type Case = {
 
 export const cases: Case[] = [
   {
+    id: "cambio-fisico",
+    // Falta el nombre (o las iniciales) y su permiso para publicar fotos y texto.
+    name: "Alumna de Giuliana",
+    detail: "Antes y después",
+    quote:
+      "Cuando te hablé por primera vez, te dije que quería cambiar mi vida y sumar hábitos saludables. Hoy entrenar es mi plan de todos los días y me hace súper bien. ¡Gracias por eso!",
+    before: {
+      src: "/images/cambio-antes.jpg",
+      alt: "La alumna antes de empezar, de frente, en su casa",
+      label: "Antes",
+    },
+    after: {
+      src: "/images/cambio-despues.jpg",
+      alt: "La misma alumna después, sacándose una foto en el espejo del gimnasio",
+      label: "Después",
+    },
+  },
+  {
     id: "giuliana",
     name: "Giuliana Zitella",
     detail: "Mi propio proceso",
@@ -40,40 +59,12 @@ export const cases: Case[] = [
     },
   },
   {
-    id: "ejemplo-1",
-    sample: true,
-    photo: {
-      src: "/images/front-rack.jpg",
-      alt: "Foto de referencia: barra en posición de front rack",
-    },
-    name: "Nombre y apellido",
-    detail: "6 meses de plan Starter",
+    id: "primer-mensaje",
+    // Extracto de su primer mensaje por WhatsApp. Falta el nombre y su permiso.
+    name: "Alumna de Giuliana",
+    detail: "Su primer mensaje, antes de empezar",
     quote:
-      "Acá va un testimonio real. Dos o tres líneas alcanzan: qué buscaba, qué cambió y cómo se siente hoy.",
-  },
-  {
-    id: "ejemplo-2",
-    sample: true,
-    photo: {
-      src: "/images/alumnas-group.jpg",
-      alt: "Foto de referencia: grupo después de una sesión en el box",
-    },
-    name: "Nombre y apellido",
-    detail: "Plan Premium",
-    quote:
-      "Segundo testimonio de ejemplo. Si hay fotos antes y después, se cargan en before/after y aparece el comparador.",
-  },
-  {
-    id: "ejemplo-3",
-    sample: true,
-    photo: {
-      src: "/images/overhead-squat.jpg",
-      alt: "Foto de referencia: overhead squat en el box",
-    },
-    name: "Nombre y apellido",
-    detail: "Premium + presencial",
-    quote:
-      "Tercer testimonio de ejemplo. Reemplazar en src/lib/content.ts.",
+      "Fui mamá hace casi 4 años y desde ese entonces no logré volver a mi cuerpo. Busco algo personalizado. Me gustaría empezar a entrenar, generar un hábito, constancia, y sentirme bien con uno mismo.",
   },
 ];
 
@@ -88,7 +79,7 @@ export const faqs = [
   },
   {
     q: "¿Qué material necesito para el plan online?",
-    a: "Con un gimnasio alcanza. Si entrenás en casa, lo adaptamos a lo que tengas: mancuernas, bandas, una barra. Lo definimos en la llamada.",
+    a: "Con un gimnasio alcanza. Si entrenás en casa, lo adaptamos a lo que tengas: mancuernas, bandas, una barra. Lo definimos cuando hablemos.",
   },
   {
     q: "¿Cada cuánto cambia el plan?",
@@ -96,7 +87,7 @@ export const faqs = [
   },
   {
     q: "¿Qué diferencia hay entre Starter y Premium?",
-    a: "Los dos tienen un plan de fuerza armado para vos en la app. Premium suma check-in semanal, corrección de técnica con tus videos y devoluciones de nutrición. Si no sabés cuál te conviene, lo vemos en la llamada.",
+    a: "Los dos tienen un plan de fuerza armado para vos en la app. Premium suma check-in semanal, corrección de técnica con tus videos y check-ins con fotos y medidas. Si no sabés cuál te conviene, escribime y lo charlamos.",
   },
   {
     q: "¿Puedo entrenar embarazada o en posparto?",
@@ -104,7 +95,7 @@ export const faqs = [
   },
   {
     q: "¿Cómo empiezo?",
-    a: "Reservás una charla de 20 minutos. Me contás qué buscás y cómo es tu semana, y te digo qué plan te conviene. Sin compromiso.",
+    a: "Me escribís por WhatsApp. Me contás qué buscás y cómo es tu semana, y te digo qué plan te conviene. Sin compromiso.",
   },
 ];
 
@@ -120,6 +111,8 @@ export type Plan = {
   includesLabel?: string;
   items: string[];
   cta: string;
+  /** Mensaje con el que se abre WhatsApp al tocar el botón del plan */
+  whatsappMessage: string;
   featured?: boolean;
 };
 
@@ -136,26 +129,28 @@ export const plans: Plan[] = [
       "Bloque nuevo cada 4 a 6 semanas",
     ],
     cta: "Quiero Starter",
+    whatsappMessage: whatsappMessages.starter,
   },
   {
     id: "premium",
     name: "Premium",
-    lead: "Seguimiento de cerca en todo: entrenamiento, técnica y alimentación.",
+    lead: "Seguimiento de cerca: ajustes cada semana y tu técnica revisada en video.",
     includesLabel: "Todo lo de Starter, más:",
     items: [
       "Check-in semanal con ajustes",
       "Corrección de técnica con tus videos",
-      "Devoluciones de nutrición sobre tus comidas",
       "Check-ins con fotos y medidas",
       "Contacto directo por WhatsApp",
     ],
     cta: "Quiero Premium",
+    whatsappMessage: whatsappMessages.premium,
     featured: true,
   },
 ];
 
 export const presencial = {
   title: "Entrenamiento presencial",
+  whatsappMessage: whatsappMessages.presencial,
   lead: "Sesiones 1 a 1 o en grupo reducido. Se suma a cualquiera de los dos planes.",
   items: [
     "Individual o grupo reducido",

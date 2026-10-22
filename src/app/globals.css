@@ -3,8 +3,10 @@
 
 /*
   GZ Training design tokens
-  Theme lock: dark, whole page. One accent (lilac, the color Giuliana chose for her brand and logo).
+  Dark by default. One accent (lilac, the color Giuliana chose for her brand and logo).
   Neutrals lean slightly violet so they sit with the accent.
+  `.theme-light` swaps the same tokens for a white version: on a whole page
+  (data-page-theme="light") or on a single section.
   Shape rule: panels and images 16-24px, buttons full pill, inputs 12px.
 */
 @theme {
@@ -18,9 +20,17 @@
   --color-lilac: #b8a1f3;
   --color-lilac-2: #cbb9f8;
   --color-lilac-3: #8e72dd;
+  /* Texto sobre relleno lila */
+  --color-on-lilac: #0d0b10;
+  /* Bordes y divisores: se usan con opacidad (border-line/8) */
+  --color-line: #ffffff;
+  /* Elementos que van sobre fotos: no cambian con el tema */
+  --color-photo-fg: #f2eff6;
+  --color-photo-ink: #0d0b10;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-archivo), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
 
   --radius-panel: 1.25rem;
 
@@ -54,6 +64,34 @@
   color-scheme: dark;
 }
 
+/* Versión blanca. Mismos nombres de token, valores claros.
+   El lila se oscurece para que el texto lila se lea sobre blanco,
+   y el texto sobre lila pasa a blanco. */
+.theme-light,
+html:has([data-page-theme="light"]) {
+  --color-ink: #fbf9fd;
+  --color-ink-2: #f3eff8;
+  --color-ink-3: #e9e3f1;
+  --color-ink-4: #dcd4e7;
+  --color-bone: #18141d;
+  --color-bone-2: #4b4555;
+  --color-muted: #736c7e;
+  --color-lilac: #7d5bd8;
+  --color-lilac-2: #6a47c9;
+  --color-lilac-3: #5a3bb0;
+  --color-on-lilac: #ffffff;
+  --color-line: #18141d;
+  --shadow-lilac: 0 20px 50px -24px rgb(125 91 216 / 0.45);
+  --shadow-panel: 0 30px 70px -30px rgb(24 20 29 / 0.25);
+  color-scheme: light;
+}
+
+/* Una sección clara dentro de la página oscura pinta su propio fondo */
+.theme-light {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+}
+
 /* Respaldo para cuando Lenis no corre (sin JS o movimiento reducido).
    Con Lenis activo, su propia hoja de estilos toma el control del scroll. */
 html {
@@ -78,7 +116,7 @@ body {
 
 ::selection {
   background: var(--color-lilac);
-  color: var(--color-ink);
+  color: var(--color-on-lilac);
 }
 
 /* Titulares: Archivo condensada, en caja baja. Contundente sin gritar en mayúsculas. */
@@ -93,6 +131,22 @@ body {
 /* Misma familia y ancho, menos peso: sirve para bajar una línea de jerarquía */
 .display-soft {
   font-weight: 450;
+}
+
+/* Remarcado: una palabra por título en serif cursiva, en lila.
+   Rompe la uniformidad de la Archivo condensada sin cambiar de color de golpe.
+   La cursiva tiene menos altura de x que la Archivo: se compensa con tamaño. */
+.accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: normal;
+  font-variation-settings: "opsz" 72;
+  font-size: 1.12em;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-lilac);
+  padding-right: 0.04em;
 }
 
 /* Subtítulos y elementos de interfaz: Inter, para que se lean rápido */
@@ -119,7 +173,22 @@ body {
 
 /* Hairline that uses the page's own tint */
 .hairline {
-  border-color: rgb(255 255 255 / 0.08);
+  border-color: color-mix(in oklab, var(--color-line) 8%, transparent);
+}
+
+/* Foto del hero en desktop: se funde con el fondo por la izquierda, abajo y arriba.
+   Las máscaras se intersectan, así ningún borde de la foto queda a la vista. */
+.hero-photo-fade {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 38%),
+    linear-gradient(to top, transparent 0%, #000 28%),
+    linear-gradient(to bottom, transparent 0%, #000 4%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 38%),
+    linear-gradient(to top, transparent 0%, #000 28%),
+    linear-gradient(to bottom, transparent 0%, #000 4%);
+  mask-composite: intersect;
 }
 
 /* Fine grain on a fixed, inert layer */
@@ -137,7 +206,7 @@ body {
    En mobile se tiñe la que pasa por el centro de la pantalla mientras se
    scrollea. En desktop manda el índice: solo la primera va en lilac. */
 .bento-card {
-  border: 1px solid rgb(255 255 255 / 0.08);
+  border: 1px solid color-mix(in oklab, var(--color-line) 8%, transparent);
   background: var(--color-ink-2);
   color: var(--color-bone);
   transition:
@@ -159,23 +228,23 @@ body {
 .bento-card[data-active="true"] {
   background: var(--color-lilac);
   border-color: var(--color-lilac);
-  color: var(--color-ink);
+  color: var(--color-on-lilac);
 }
 
 .bento-card[data-active="true"] .bento-icon,
 .bento-card[data-active="true"] .bento-body {
-  color: var(--color-ink);
+  color: var(--color-on-lilac);
 }
 
 .bento-card[data-active="true"] .bento-body {
-  color: rgb(13 11 16 / 0.8);
+  color: color-mix(in oklab, var(--color-on-lilac) 80%, transparent);
 }
 
 @media (width >= 48rem) {
   /* El scroll deja de decidir: vuelve el esquema fijo */
   .bento-card[data-active="true"] {
     background: var(--color-ink-2);
-    border-color: rgb(255 255 255 / 0.08);
+    border-color: color-mix(in oklab, var(--color-line) 8%, transparent);
     color: var(--color-bone);
   }
 
@@ -190,15 +259,15 @@ body {
   .bento-card[data-featured="true"] {
     background: var(--color-lilac);
     border-color: var(--color-lilac);
-    color: var(--color-ink);
+    color: var(--color-on-lilac);
   }
 
   .bento-card[data-featured="true"] .bento-icon {
-    color: var(--color-ink);
+    color: var(--color-on-lilac);
   }
 
   .bento-card[data-featured="true"] .bento-body {
-    color: rgb(13 11 16 / 0.8);
+    color: color-mix(in oklab, var(--color-on-lilac) 80%, transparent);
   }
 }
 
@@ -208,9 +277,4 @@ body {
   .bento-card .bento-body {
     transition: none;
   }
-}
-
-/* Cal.com embed container */
-.cal-frame iframe {
-  border-radius: 1rem;
 }

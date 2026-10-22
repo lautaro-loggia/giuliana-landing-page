@@ -10,15 +10,18 @@ import {
   useReducedMotion,
 } from "motion/react";
 
+// Sesión de fotos en el box intercalada con fotos de competencia
 const photos = [
+  { src: "/images/box-discos-apoyada.jpg", alt: "Giuliana apoyada sobre una torre de discos en el box", w: 1600, h: 2000 },
   { src: "/images/wtc-pullups.jpg", alt: "Giuliana en la barra durante una competencia de CrossFit", w: 1440, h: 1520 },
-  { src: "/images/overhead-squat.jpg", alt: "Overhead squat con barra en el box", w: 720, h: 1280 },
-  { src: "/images/one-more-pro.jpg", alt: "Giuliana descansando entre series frente a un mural", w: 1440, h: 1509 },
+  { src: "/images/box-colchoneta.jpg", alt: "Giuliana en la colchoneta con muñequeras, mirando a cámara", w: 1333, h: 2000 },
+  { src: "/images/exterior-paralelas.jpg", alt: "Giuliana entrenando con paralelas al aire libre", w: 1600, h: 2000 },
   { src: "/images/comp-lift.jpg", alt: "Levantamiento en competencia de CrossFit", w: 720, h: 900 },
-  { src: "/images/mirror-white.jpg", alt: "Giuliana en el gimnasio", w: 1440, h: 1800 },
+  { src: "/images/box-barra.jpg", alt: "Giuliana apoyada sobre una barra olímpica", w: 1333, h: 2000 },
+  { src: "/images/box-disco-frente.jpg", alt: "Giuliana sosteniendo un disco frente a la torre de discos", w: 1600, h: 2000 },
   { src: "/images/bar-muscleup.jpg", alt: "Bar muscle-up en competencia", w: 1440, h: 1546 },
-  { src: "/images/front-rack.jpg", alt: "Barra en posición de front rack", w: 720, h: 1280 },
-  { src: "/images/team-bearfit.jpg", alt: "Giuliana con su equipo de entrenamiento", w: 1440, h: 1440 },
+  { src: "/images/box-v-up.jpg", alt: "Giuliana haciendo abdominales en V sobre la colchoneta", w: 1333, h: 2000 },
+  { src: "/images/exterior-banco.jpg", alt: "Giuliana descansando en un banco al aire libre", w: 1333, h: 2000 },
 ];
 
 /** Píxeles por segundo a velocidad normal. */

@@ -18,12 +18,12 @@ export function Faq() {
             <h2 className="display text-5xl sm:text-6xl">
               Preguntas
               <br />
-              frecuentes
+              <em className="accent">frecuentes</em>
             </h2>
           </Reveal>
 
           <div className="lg:col-span-8">
-            <ul className="divide-y divide-white/8 border-y border-white/8">
+            <ul className="divide-y divide-line/8 border-y border-line/8">
               {faqs.map((f, i) => {
                 const isOpen = open === i;
                 const id = `faq-${i}`;
@@ -42,7 +42,7 @@ export function Faq() {
                           animate={{ rotate: isOpen ? 45 : 0 }}
                           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                           className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${
-                            isOpen ? "border-lilac text-lilac" : "border-white/15 text-bone"
+                            isOpen ? "border-lilac text-lilac" : "border-line/15 text-bone"
                           }`}
                         >
                           <Plus size={16} weight="bold" />

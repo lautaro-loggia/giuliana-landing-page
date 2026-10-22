@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { site } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/Button";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -26,7 +26,7 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
   // La foto se mueve más lento que la página: da profundidad sin distraer.
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "12%"]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "10%"]);
   const copyY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-8%"]);
   const fade = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
@@ -36,61 +36,77 @@ export function Hero() {
       ref={ref}
       className="relative isolate min-h-[100dvh] overflow-hidden"
     >
-      {/* Foto a sangre, con overscan para que el parallax no descubra bordes.
-          En desktop el recuadro se estira hacia la derecha y queda anclado a la
-          izquierda: eso corre a Giuliana al centro derecha, lejos del texto. */}
+      {/* Mobile: el retrato mirando hacia arriba, a sangre. El parallax baja la
+          foto, así que el margen extra va solo abajo: arriba la cabeza entra
+          entera. */}
       <motion.div
         style={{ y: imgY }}
-        className="absolute inset-y-[-8%] left-[-8%] right-[-8%] -z-20 md:left-0 md:right-[-30%]"
+        className="absolute inset-x-0 top-0 -bottom-[12%] -z-20 md:hidden"
       >
-        {/* En mobile una foto vertical, que es donde mejor entra de cuerpo entero */}
         <Image
-          src="/images/jump-rope-pro.jpg"
-          alt="Giuliana Zitella de perfil, saltando la soga durante un entrenamiento"
+          src="/images/retrato-mirada.jpg"
+          alt="Retrato de Giuliana Zitella sentada en un banco, mirando hacia arriba"
           fill
           priority
+          quality={90}
           sizes="100vw"
-          className="object-cover object-[58%_18%] md:hidden"
-        />
-        {/* En desktop la de la competencia, que es apaisada */}
-        <Image
-          src="/images/comp-smile.jpg"
-          alt="Giuliana Zitella festejando con el brazo en alto en la Copa Sur de CrossFit"
-          fill
-          sizes="100vw"
-          className="hidden object-cover object-[50%_42%] md:block"
+          className="object-cover object-[45%_0%]"
         />
       </motion.div>
-
-      {/* Velos: en mobile de abajo hacia arriba, en desktop de izquierda a derecha */}
+      {/* Velos: abajo para que el texto se apoye sobre el fondo (mobile) y arriba
+          para que el menú se lea sobre la foto (todas las medidas) */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/85 to-ink/45 md:bg-gradient-to-r md:from-ink md:via-ink/75 md:to-ink/15"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/80 to-ink/10 md:hidden"
       />
       <div
         aria-hidden
-        className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-ink to-transparent"
+        className="absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-ink/70 to-transparent"
       />
 
-      <div className="shell relative flex min-h-[100dvh] flex-col justify-end pb-16 pt-24 md:justify-center md:pb-28">
+      {/* Desktop: el retrato de cuerpo entero ocupa el lado derecho, sin marco.
+          Se desvanece hacia la izquierda, abajo y arriba, así la foto y el fondo
+          del hero son una sola superficie y el texto queda sobre liso. Arranca
+          debajo del menú para que la cabeza no quede tapada. */}
+      <motion.div
+        style={{ y: imgY }}
+        className="hero-photo-fade absolute top-14 bottom-0 right-0 -z-20 hidden w-[62%] md:block lg:w-[58%]"
+      >
+        <Image
+          src="/images/retrato-banco.jpg"
+          alt="Retrato de Giuliana Zitella sentada en un banco, mirando a cámara"
+          fill
+          priority
+          quality={90}
+          sizes="(min-width: 1024px) 58vw, 62vw"
+          className="object-cover object-[50%_0%]"
+        />
+      </motion.div>
+      {/* La pared de la foto es más clara que el fondo: un velo la acerca al tono */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-ink via-ink/40 to-ink/15 md:block"
+      />
+
+      <div className="shell relative grid min-h-[100dvh] grid-cols-1 items-end pb-16 pt-24 md:grid-cols-12 md:items-center md:pb-12 md:pt-28">
         <motion.div
           style={{ y: copyY, opacity: fade }}
           variants={stagger}
           initial={reduce ? false : "hidden"}
           animate="show"
-          className="max-w-[40rem] md:max-w-[34rem]"
+          className="max-w-[40rem] md:col-span-7"
         >
           <motion.h1
             variants={rise}
             className="display text-[10.5vw] leading-[1.02] sm:text-5xl lg:text-[4rem] xl:text-[4.5rem]"
           >
-            {/* Dos líneas en peso medio, el remate en peso máximo: la jerarquía
-                es de weight dentro de la misma familia, no de color */}
+            {/* Dos líneas en peso medio, el remate en peso máximo y la palabra
+                clave en serif cursiva lila */}
             <span className="display-soft">La fuerza no es</span>
             <br />
             <span className="display-soft">cuestión de ganas.</span>
             <br />
-            <span className="text-lilac">Es cuestión de plan.</span>
+            <span>Es cuestión de <em className="accent">plan.</em></span>
           </motion.h1>
 
           <motion.p
@@ -102,7 +118,7 @@ export function Hero() {
           </motion.p>
 
           <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-3">
-            <ButtonLink href="#agendar" size="lg">
+            <ButtonLink href={whatsappLink()} size="lg">
               {site.ctaLabel}
             </ButtonLink>
             <ButtonLink href="#planes" size="lg" variant="outline">
@@ -110,6 +126,7 @@ export function Hero() {
             </ButtonLink>
           </motion.div>
         </motion.div>
+
       </div>
     </section>
   );

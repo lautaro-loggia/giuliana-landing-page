@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { Reveal } from "@/components/motion/Reveal";
@@ -8,7 +9,7 @@ const steps = [
   {
     title: "Hablamos",
     body:
-      "Una llamada de 20 minutos para conocer tu punto de partida, tu objetivo y cómo es tu semana real.",
+      "Me escribís por WhatsApp y charlamos tu punto de partida, tu objetivo y cómo es tu semana real.",
   },
   {
     title: "Armo tu plan",
@@ -46,17 +47,27 @@ export function Method() {
               <h2 className="display text-5xl sm:text-6xl lg:text-7xl">
                 Así
                 <br />
-                trabajamos
+                <em className="accent">trabajamos</em>
               </h2>
               <p className="mt-6 max-w-[38ch] text-bone-2 leading-relaxed">
                 Sin fórmulas mágicas. Un plan que se ajusta a tu vida y una coach que lo revisa de cerca.
               </p>
+              {/* Solo en desktop: acompaña la columna fija mientras se leen los pasos */}
+              <div className="relative mt-10 hidden aspect-[4/3] max-w-md overflow-hidden rounded-panel bg-ink-2 lg:block">
+                <Image
+                  src="/images/box-discos-retrato.jpg"
+                  alt="Giuliana apoyada sobre una torre de discos en el box, mirando a cámara"
+                  fill
+                  sizes="(min-width: 1024px) 28rem, 0px"
+                  className="object-cover object-[50%_45%]"
+                />
+              </div>
             </Reveal>
           </div>
         </div>
 
         <div className="relative lg:col-span-7">
-          <div aria-hidden className="absolute left-[11px] top-2 bottom-2 w-px bg-white/10" />
+          <div aria-hidden className="absolute left-[11px] top-2 bottom-2 w-px bg-line/10" />
           <motion.div
             aria-hidden
             style={{ scaleY: reduce ? 1 : scaleY, originY: 0 }}

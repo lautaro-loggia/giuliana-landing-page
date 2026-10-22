@@ -116,7 +116,7 @@ function Compare({
 
         <motion.div
           style={{ left }}
-          className="pointer-events-none absolute inset-y-0 -ml-px w-0.5 bg-bone/90"
+          className="pointer-events-none absolute inset-y-0 -ml-px w-0.5 bg-photo-fg/90"
         >
           <button
             type="button"
@@ -128,7 +128,7 @@ function Compare({
             onPointerMove={moveDrag}
             onPointerUp={endDrag}
             onPointerCancel={endDrag}
-            className="pointer-events-auto absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize touch-none items-center justify-center rounded-full bg-bone text-ink shadow-panel"
+            className="pointer-events-auto absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize touch-none items-center justify-center rounded-full bg-photo-fg text-photo-ink shadow-panel"
           >
             <ArrowLeft size={12} weight="bold" />
             <ArrowRight size={12} weight="bold" />
@@ -157,7 +157,7 @@ function CaseCard({ c }: { c: Case }) {
   const hasPhotos = c.before && c.after;
   return (
     <article
-      className={`snap-start shrink-0 rounded-panel border border-white/8 bg-ink-2 ${
+      className={`snap-start shrink-0 rounded-panel border border-line/8 bg-ink-2 ${
         hasPhotos ? "w-[min(88vw,760px)]" : "w-[min(88vw,420px)]"
       }`}
     >
@@ -194,7 +194,7 @@ function CaseCard({ c }: { c: Case }) {
             <p className="font-semibold">{c.name}</p>
             <p className="text-sm text-muted">{c.detail}</p>
             {c.sample && (
-              <p className="mt-2 inline-block rounded-full border border-white/10 px-2 py-0.5 text-[11px] text-muted">
+              <p className="mt-2 inline-block rounded-full border border-line/10 px-2 py-0.5 text-[11px] text-muted">
                 Testimonio de ejemplo
               </p>
             )}
@@ -234,7 +234,7 @@ export function Results() {
             <p className="eyebrow">Resultados</p>
             <h2 className="display mt-3 max-w-3xl text-5xl sm:text-6xl lg:text-7xl">
               Cambios que se ven
-              <br />y se sienten
+              <br />y se <em className="accent">sienten</em>
             </h2>
           </div>
           <div className="flex gap-2">
@@ -242,7 +242,7 @@ export function Results() {
               type="button"
               onClick={() => go(-1)}
               aria-label="Anterior"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
             >
               <ArrowLeft size={18} weight="bold" />
             </button>
@@ -250,7 +250,7 @@ export function Results() {
               type="button"
               onClick={() => go(1)}
               aria-label="Siguiente"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
             >
               <ArrowRight size={18} weight="bold" />
             </button>
@@ -260,7 +260,7 @@ export function Results() {
 
       <div
         ref={scroller}
-        data-lenis-prevent
+        data-lenis-prevent-horizontal
         className="shell-start mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 pr-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {cases.map((c) => (

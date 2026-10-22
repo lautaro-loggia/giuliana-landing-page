@@ -10,7 +10,7 @@ import {
   useScroll,
 } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
-import { nav, site } from "@/lib/site";
+import { nav, site, whatsappLink } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { LogoWordmark } from "@/components/ui/Logo";
 
@@ -33,7 +33,7 @@ export function Nav() {
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         className={`transition-[background-color,border-color,backdrop-filter] duration-300 ${
           solid || open
-            ? "border-b border-white/8 bg-ink/80 backdrop-blur-xl"
+            ? "border-b border-line/8 bg-ink/80 backdrop-blur-xl"
             : "border-b border-transparent bg-transparent"
         }`}
       >
@@ -64,7 +64,7 @@ export function Nav() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <ButtonLink href="#agendar" className="px-4 text-xs sm:px-5 sm:text-sm">
+            <ButtonLink href={whatsappLink()} className="px-4 text-xs sm:px-5 sm:text-sm">
               {site.ctaLabel}
             </ButtonLink>
             <button
@@ -73,7 +73,7 @@ export function Nav() {
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? "Cerrar menú" : "Abrir menú"}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-bone lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-bone lg:hidden"
             >
               {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
             </button>
@@ -109,7 +109,7 @@ export function Nav() {
                 ))}
                 <li className="pt-3">
                   <ButtonLink
-                    href="#agendar"
+                    href={whatsappLink()}
                     size="lg"
                     className="w-full"
                     onClick={() => setOpen(false)}

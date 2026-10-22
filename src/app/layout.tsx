@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter } from "next/font/google";
+import { Archivo, Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
@@ -46,6 +46,16 @@ function resolveSiteUrl(): URL {
   return new URL("https://gztraining.com.ar");
 }
 
+// Newsreader cursiva: solo para remarcar una palabra por título. Serif editorial
+// con eje de tamaño óptico, así en grande gana contraste como una display.
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  style: ["italic"],
+  axes: ["opsz"],
+  display: "swap",
+  variable: "--font-newsreader",
+});
+
 const siteUrl = resolveSiteUrl();
 
 export const metadata: Metadata = {
@@ -86,7 +96,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-AR" className={`${inter.variable} ${archivo.variable}`}>
+    <html lang="es-AR" className={`${inter.variable} ${archivo.variable} ${newsreader.variable}`}>
       <body className="min-h-dvh bg-ink text-bone">
         <SmoothScroll />
         {children}

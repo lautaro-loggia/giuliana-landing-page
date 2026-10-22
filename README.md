@@ -19,10 +19,9 @@ Copiá `.env.example` a `.env.local` y completá:
 
 | Variable | Qué hace |
 | --- | --- |
-| `NEXT_PUBLIC_CAL_LINK` | Enlace de Cal.com con formato `usuario/evento` (ej. `giulianazitella/llamada`). Sin esta variable la sección "Agendar" muestra un aviso de configuración. |
 | `NEXT_PUBLIC_SITE_URL` | Opcional. URL pública del sitio, solo para los metadatos Open Graph. Si falta, se usa la URL que Vercel expone para el deploy. No la dejes definida y vacía en Vercel: borrala del proyecto o cargale el dominio real. |
 
-Datos de contacto, redes y textos de navegación: `src/lib/site.ts`.
+Datos de contacto, redes y textos de navegación: `src/lib/site.ts`. El contacto es solo por WhatsApp: cada botón abre el chat con un mensaje ya escrito (`whatsappMessages` en el mismo archivo).
 
 ## Contenido a reemplazar antes de publicar
 
@@ -39,9 +38,9 @@ Las fotos en `public/images` provienen del Instagram de Giuliana (@giulianazitel
 ```
 src/app/            layout (fuente, metadatos) y página principal
 src/components/     una sección por archivo: Nav, Hero, PhotoMarquee, Services,
-                    Method, About, AppSection, Results, Booking, Faq, Footer
+                    Method, About, AppSection, Results, Contact, Faq, Footer
 src/components/motion/Reveal.tsx   wrapper de aparición al hacer scroll
-src/lib/site.ts     constantes del sitio (WhatsApp, Instagram, Cal, navegación)
+src/lib/site.ts     constantes del sitio (WhatsApp y sus mensajes, Instagram, navegación)
 src/lib/content.ts  testimonios y preguntas frecuentes
 ```
 

@@ -7,9 +7,9 @@ const base =
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-[transform,background-color,color,border-color] duration-200 ease-out active:scale-[0.98] select-none";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-lilac text-ink hover:bg-lilac-2 shadow-lilac",
+  primary: "bg-lilac text-on-lilac hover:bg-lilac-2 shadow-lilac",
   ghost: "text-bone hover:text-lilac",
-  outline: "border border-white/15 text-bone hover:border-lilac hover:text-lilac",
+  outline: "border border-line/15 text-bone hover:border-lilac hover:text-lilac",
 };
 
 const sizes = {
@@ -28,8 +28,11 @@ export function ButtonLink({
   className = "",
   ...props
 }: ButtonLinkProps) {
+  // Los links a otro sitio (WhatsApp) se abren en otra pestaña
+  const external = typeof props.href === "string" && /^https?:\/\//.test(props.href);
   return (
     <Link
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
       {...props}
     />

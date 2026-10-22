@@ -6,11 +6,24 @@ export const site = {
   instagramHandle: "@giulianazitella",
   whatsapp: "https://wa.me/5491161740977",
   whatsappLabel: "+54 9 11 6174-0977",
-  // Cal.com: set NEXT_PUBLIC_CAL_LINK to "usuario/evento" (ej. "giulianazitella/llamada")
-  calLink: process.env.NEXT_PUBLIC_CAL_LINK ?? "",
-  calNamespace: "llamada",
   ctaLabel: "Quiero empezar",
 };
+
+/**
+ * WhatsApp es el único canal de contacto. Cada botón abre el chat con un
+ * mensaje ya escrito, así Giuli sabe desde dónde llega cada consulta.
+ */
+export const whatsappMessages = {
+  general: "¡Hola Giuli! Quiero empezar a entrenar con vos.",
+  starter: "¡Hola Giuli! Me interesa el plan Starter.",
+  premium: "¡Hola Giuli! Me interesa el plan Premium.",
+  presencial: "¡Hola Giuli! Me interesa el entrenamiento presencial.",
+  consulta: "¡Hola Giuli! Tengo una consulta.",
+} as const;
+
+export function whatsappLink(message: string = whatsappMessages.general) {
+  return `${site.whatsapp}?text=${encodeURIComponent(message)}`;
+}
 
 export const nav = [
   { label: "Planes", href: "#planes" },
