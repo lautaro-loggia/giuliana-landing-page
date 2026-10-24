@@ -44,7 +44,7 @@ export function Method() {
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-32">
             <Reveal>
-              <h2 className="display text-5xl sm:text-6xl lg:text-7xl">
+              <h2 className="display text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
                 Así
                 <br />
                 <em className="accent">trabajamos</em>

@@ -147,15 +147,3 @@ export const plans: Plan[] = [
     featured: true,
   },
 ];
-
-export const presencial = {
-  title: "Entrenamiento presencial",
-  whatsappMessage: whatsappMessages.presencial,
-  lead: "Sesiones 1 a 1 o en grupo reducido. Se suma a cualquiera de los dos planes.",
-  items: [
-    "Individual o grupo reducido",
-    "Técnica de levantamientos",
-    "Planificación por ciclos",
-    "Combinable con Starter o Premium",
-  ],
-};

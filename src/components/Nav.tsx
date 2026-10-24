@@ -26,20 +26,32 @@ export function Nav() {
   });
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    // Menú flotante: una barra con bordes redondeados, separada de los bordes
+    // de la pantalla. Arriba de todo queda adentro del recuadro del hero.
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 md:px-4 md:pt-4">
       <motion.div
         initial={reduce ? false : { y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className={`transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        // Entra cuando la foto del hero ya terminó de abrirse, nunca antes
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: reduce ? 0 : 1.05 }}
+        // Arriba de todo va transparente sobre la foto del hero, con texto claro y
+        // tan ancho como el contenido: el logo alineado con el texto del hero.
+        // Al scrollear se achica a una tarjeta angosta con fondo, borde y sombra.
+        className={`mx-auto rounded-2xl border transition-[max-width,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           solid || open
-            ? "border-b border-line/8 bg-ink/80 backdrop-blur-xl"
-            : "border-b border-transparent bg-transparent"
+            ? "max-w-[900px] border-line/10 bg-ink/80 shadow-[0_14px_40px_-18px_rgb(0_0_0/0.35)] backdrop-blur-xl"
+            : "theme-dark max-w-[1180px] border-transparent bg-transparent"
         }`}
       >
+        {/* Arriba, el relleno compensa el margen del header y el del recuadro del
+            hero para caer sobre la misma línea que su texto */}
         <nav
           aria-label="Principal"
-          className="shell flex h-16 items-center justify-between md:h-[72px]"
+          className={`flex h-14 items-center justify-between transition-[padding] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:h-16 ${
+            solid || open
+              ? "pl-4 pr-1.5 md:pl-6 md:pr-2.5"
+              : "px-4 md:px-7 xl:px-8"
+          }`}
         >
           <Link
             href="#top"
@@ -50,7 +62,7 @@ export function Nav() {
             <LogoWordmark tagline={false} className="h-7 w-auto md:h-8" />
           </Link>
 
-          <ul className="hidden items-center gap-8 lg:flex">
+          <ul className="hidden items-center gap-6 lg:flex">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link
@@ -73,7 +85,7 @@ export function Nav() {
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? "Cerrar menú" : "Abrir menú"}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-bone lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line/15 text-bone lg:hidden"
             >
               {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
             </button>

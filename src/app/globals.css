@@ -7,7 +7,7 @@
   Neutrals lean slightly violet so they sit with the accent.
   `.theme-light` swaps the same tokens for a white version: on a whole page
   (data-page-theme="light") or on a single section.
-  Shape rule: panels and images 16-24px, buttons full pill, inputs 12px.
+  Shape rule: panels and images 16-28px, buttons and controls 12px, tags 6-8px.
 */
 @theme {
   --color-ink: #0d0b10;
@@ -29,7 +29,7 @@
   --color-photo-ink: #0d0b10;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-archivo), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-display: var(--font-geist), var(--font-inter), ui-sans-serif, sans-serif;
   --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
 
   --radius-panel: 1.25rem;
@@ -38,6 +38,15 @@
 
   --shadow-lilac: 0 20px 60px -20px rgb(184 161 243 / 0.4);
   --shadow-panel: 0 30px 80px -30px rgb(0 0 0 / 0.8);
+}
+
+/* El CSS de Lenis pone overscroll-behavior: contain en los dos ejes a lo que
+   lleva data-lenis-prevent-horizontal. En el celular eso atrapa el gesto
+   vertical: arrancando sobre una tarjeta del carrusel, la página no bajaba.
+   El carrusel solo tiene que contener el desplazamiento horizontal. */
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
 }
 
 /* Un solo lugar define el ancho de la página y sus márgenes laterales */
@@ -86,6 +95,26 @@ html:has([data-page-theme="light"]) {
   color-scheme: light;
 }
 
+/* Tokens oscuros para lo que va siempre sobre foto (el hero y el menú mientras
+   está arriba de todo), aunque la página sea la versión blanca. Solo tokens:
+   el fondo lo pone cada lugar. */
+.theme-dark {
+  --color-ink: #0d0b10;
+  --color-ink-2: #15121a;
+  --color-ink-3: #1e1a24;
+  --color-ink-4: #2b2632;
+  --color-bone: #f2eff6;
+  --color-bone-2: #d8d3df;
+  --color-muted: #a29cab;
+  --color-lilac: #b8a1f3;
+  --color-lilac-2: #cbb9f8;
+  --color-lilac-3: #8e72dd;
+  --color-on-lilac: #0d0b10;
+  --color-line: #ffffff;
+  --shadow-lilac: 0 20px 60px -20px rgb(184 161 243 / 0.4);
+  color-scheme: dark;
+}
+
 /* Una sección clara dentro de la página oscura pinta su propio fondo */
 .theme-light {
   background-color: var(--color-ink);
@@ -119,23 +148,22 @@ body {
   color: var(--color-on-lilac);
 }
 
-/* Titulares: Archivo condensada, en caja baja. Contundente sin gritar en mayúsculas. */
+/* Titulares: Geist semibold, en caja baja y bien ajustada. */
 .display {
   font-family: var(--font-display);
-  font-stretch: 68%;
-  font-weight: 900;
-  letter-spacing: -0.018em;
-  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
 }
 
-/* Misma familia y ancho, menos peso: sirve para bajar una línea de jerarquía */
+/* Misma familia, menos peso: sirve para bajar una línea de jerarquía */
 .display-soft {
-  font-weight: 450;
+  font-weight: 400;
 }
 
 /* Remarcado: una palabra por título en serif cursiva, en lila.
-   Rompe la uniformidad de la Archivo condensada sin cambiar de color de golpe.
-   La cursiva tiene menos altura de x que la Archivo: se compensa con tamaño. */
+   Rompe la uniformidad de la Geist sin cambiar de color de golpe.
+   La cursiva tiene menos altura de x que la Geist: se compensa con tamaño. */
 .accent {
   font-family: var(--font-serif);
   font-style: italic;
@@ -147,6 +175,16 @@ body {
   letter-spacing: -0.02em;
   color: var(--color-lilac);
   padding-right: 0.04em;
+}
+
+/* Misma serif cursiva pero en el color del texto, sin el lila */
+.accent-inherit {
+  color: inherit;
+}
+
+/* Más peso para cuando la serif carga una línea entera (el remate del hero) */
+.accent-strong {
+  font-weight: 600;
 }
 
 /* Subtítulos y elementos de interfaz: Inter, para que se lean rápido */
@@ -176,19 +214,36 @@ body {
   border-color: color-mix(in oklab, var(--color-line) 8%, transparent);
 }
 
-/* Foto del hero en desktop: se funde con el fondo por la izquierda, abajo y arriba.
-   Las máscaras se intersectan, así ningún borde de la foto queda a la vista. */
-.hero-photo-fade {
-  -webkit-mask-image:
-    linear-gradient(to right, transparent 0%, #000 38%),
-    linear-gradient(to top, transparent 0%, #000 28%),
-    linear-gradient(to bottom, transparent 0%, #000 4%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to right, transparent 0%, #000 38%),
-    linear-gradient(to top, transparent 0%, #000 28%),
-    linear-gradient(to bottom, transparent 0%, #000 4%);
-  mask-composite: intersect;
+/* Visor estilo historia: la barra activa se llena y la foto hace un zoom
+   lento hacia atrás. El componente pausa las dos con animation-play-state. */
+.story-progress {
+  animation-name: story-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes story-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.story-zoom {
+  animation-name: story-zoom;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes story-zoom {
+  from {
+    transform: scale(1.07);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 /* Fine grain on a fixed, inert layer */

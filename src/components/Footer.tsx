@@ -13,7 +13,7 @@ export function Footer() {
             className="h-20 w-auto text-lilac [--logo-word:var(--color-bone)]"
           />
           <p className="mt-3 max-w-[36ch] text-sm text-bone-2">
-            {site.coach}, {site.role.toLowerCase()}. Entrenamiento de fuerza online y presencial, para cualquier persona que quiera ganar fuerza.
+            {site.coach}, {site.role.toLowerCase()}. Entrenamiento de fuerza online, para cualquier persona que quiera ganar fuerza.
           </p>
         </div>
 

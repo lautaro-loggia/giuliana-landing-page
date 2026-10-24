@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  animate,
   motion,
+  useInView,
   useMotionValue,
   useTransform,
   useReducedMotion,
+  type AnimationPlaybackControlsWithThen,
 } from "motion/react";
 import { ArrowLeft, ArrowRight, Quotes } from "@phosphor-icons/react";
 import { cases, type Case } from "@/lib/content";
@@ -21,6 +24,11 @@ import { Reveal } from "@/components/motion/Reveal";
  * puntero y el gesto se corta a la mitad. La foto no restringe el gesto, así
  * que desde ahí se sigue scrolleando la página y deslizando el carrusel; un
  * toque simple, que no desplaza el dedo, mueve el divisor a ese punto.
+ *
+ * Mientras nadie lo toca, el divisor recorre solo y despacio de un lado al otro
+ * cuando la tarjeta está en pantalla, con pausas en cada extremo. Apenas la
+ * persona lo toca, el recorrido se detiene y no vuelve a arrancar: el control
+ * queda en sus manos. Con movimiento reducido no se anima.
  */
 function Compare({
   before,
@@ -38,6 +46,45 @@ function Compare({
   );
   const left = useTransform(x, (v) => `${v * 100}%`);
 
+  const reduce = useReducedMotion();
+  const inView = useInView(ref, { amount: 0.5 });
+  const [touched, setTouched] = useState(false);
+  const sweep = useRef<AnimationPlaybackControlsWithThen | null>(null);
+
+  useEffect(() => {
+    if (reduce || touched || !inView) return;
+    let cancelled = false;
+    // Un recorrido lento: va a "antes", se queda un rato, cruza despacio a
+    // "después", se queda otro rato y vuelve al centro. Cada tramo se ve bien.
+    const path = [0.5, 0.18, 0.18, 0.82, 0.82, 0.5];
+    const options = {
+      duration: 11,
+      times: [0, 0.18, 0.32, 0.68, 0.82, 1],
+      ease: "easeInOut" as const,
+    };
+    // Pausa breve al llegar, así primero se ve la foto quieta
+    const start = setTimeout(() => {
+      if (cancelled) return;
+      // La primera vez sale desde donde esté el divisor; después, el loop
+      sweep.current = animate(x, [x.get(), ...path.slice(1)], options);
+      sweep.current.then(() => {
+        if (cancelled) return;
+        sweep.current = animate(x, path, { ...options, repeat: Infinity, repeatDelay: 1.5 });
+      });
+    }, 900);
+    return () => {
+      cancelled = true;
+      clearTimeout(start);
+      sweep.current?.stop();
+    };
+  }, [inView, touched, reduce, x]);
+
+  // Al primer contacto se corta el barrido en el acto, antes del re-render
+  const takeControl = () => {
+    sweep.current?.stop();
+    if (!touched) setTouched(true);
+  };
+
   const setFromPointer = (clientX: number) => {
     const el = ref.current;
     if (!el) return;
@@ -47,6 +94,7 @@ function Compare({
   };
 
   const startDrag = (event: React.PointerEvent) => {
+    takeControl();
     dragging.current = true;
     // La captura es lo que mantiene vivo el gesto cuando el dedo se va del
     // tirador. Si el navegador la rechaza, el contenedor sigue recibiendo los
@@ -89,7 +137,10 @@ function Compare({
         onClick={(event) => {
           // El click solo llega si el dedo no se desplazó: un toque mueve el
           // divisor, un deslizamiento pasa el carrusel.
-          if (!dragging.current) setFromPointer(event.clientX);
+          if (!dragging.current) {
+            takeControl();
+            setFromPointer(event.clientX);
+          }
         }}
         onPointerMove={moveDrag}
         onPointerUp={endDrag}
@@ -141,7 +192,10 @@ function Compare({
           max={96}
           defaultValue={50}
           aria-label="Comparar antes y después"
-          onChange={(e) => x.set(Number(e.target.value) / 100)}
+          onChange={(e) => {
+            takeControl();
+            x.set(Number(e.target.value) / 100);
+          }}
           className="sr-only"
         />
       </div>
@@ -158,11 +212,11 @@ function CaseCard({ c }: { c: Case }) {
   return (
     <article
       className={`snap-start shrink-0 rounded-panel border border-line/8 bg-ink-2 ${
-        hasPhotos ? "w-[min(88vw,760px)]" : "w-[min(88vw,420px)]"
+        hasPhotos ? "w-[min(86vw,600px)]" : "w-[min(86vw,360px)]"
       }`}
     >
       <div
-        className={`grid grid-cols-1 gap-4 p-5 md:gap-6 md:p-6 ${hasPhotos ? "md:grid-cols-[1.05fr_1fr] md:items-center" : ""}`}
+        className={`grid grid-cols-1 gap-4 p-4 md:gap-5 md:p-5 ${hasPhotos ? "md:grid-cols-[1fr_1fr] md:items-stretch" : ""}`}
       >
         {hasPhotos && <Compare before={c.before!} after={c.after!} />}
 
@@ -183,10 +237,10 @@ function CaseCard({ c }: { c: Case }) {
           </div>
         )}
 
-        <div className="flex h-full flex-col justify-between gap-5 md:gap-8">
+        <div className="flex h-full flex-col justify-between gap-5">
           <div>
             <Quotes size={24} weight="fill" className="text-lilac" />
-            <p className="mt-3 text-base leading-snug text-bone md:mt-4 md:text-xl">
+            <p className="mt-3 text-[15px] leading-snug text-bone md:text-base">
               {c.quote}
             </p>
           </div>
@@ -194,7 +248,7 @@ function CaseCard({ c }: { c: Case }) {
             <p className="font-semibold">{c.name}</p>
             <p className="text-sm text-muted">{c.detail}</p>
             {c.sample && (
-              <p className="mt-2 inline-block rounded-full border border-line/10 px-2 py-0.5 text-[11px] text-muted">
+              <p className="mt-2 inline-block rounded-md border border-line/10 px-2 py-0.5 text-[11px] text-muted">
                 Testimonio de ejemplo
               </p>
             )}
@@ -232,7 +286,7 @@ export function Results() {
         <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="eyebrow">Resultados</p>
-            <h2 className="display mt-3 max-w-3xl text-5xl sm:text-6xl lg:text-7xl">
+            <h2 className="display mt-3 max-w-3xl text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
               Cambios que se ven
               <br />y se <em className="accent">sienten</em>
             </h2>
@@ -242,7 +296,7 @@ export function Results() {
               type="button"
               onClick={() => go(-1)}
               aria-label="Anterior"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
             >
               <ArrowLeft size={18} weight="bold" />
             </button>
@@ -250,7 +304,7 @@ export function Results() {
               type="button"
               onClick={() => go(1)}
               aria-label="Siguiente"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line/15 text-bone transition-colors hover:border-lilac hover:text-lilac active:scale-[0.98]"
             >
               <ArrowRight size={18} weight="bold" />
             </button>

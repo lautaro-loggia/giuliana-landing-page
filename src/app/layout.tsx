@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Inter, Newsreader } from "next/font/google";
+import { Geist, Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
@@ -10,13 +10,11 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// Archivo: titulares. Variable en peso y ancho, así el hero puede
-// contrastar una línea pesada contra dos más livianas en la misma familia.
-const archivo = Archivo({
+// Geist: titulares, en semibold.
+const geist = Geist({
   subsets: ["latin"],
-  axes: ["wdth"],
   display: "swap",
-  variable: "--font-archivo",
+  variable: "--font-geist",
 });
 
 /**
@@ -61,11 +59,11 @@ const siteUrl = resolveSiteUrl();
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default: "Giuliana Zitella | Entrenamiento de fuerza online y presencial",
+    default: "Giuliana Zitella | Entrenamiento de fuerza online",
     template: "%s | GZ Training",
   },
   description:
-    "Entrená con Giuliana Zitella, fitness coach y atleta de CrossFit. Planes de fuerza Starter y Premium, online o presencial, con seguimiento desde la app.",
+    "Entrená con Giuliana Zitella, fitness coach y atleta de CrossFit. Planes de fuerza online Starter y Premium, con seguimiento desde la app.",
   keywords: [
     "personal trainer",
     "entrenamiento online",
@@ -78,9 +76,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_AR",
     siteName: "GZ Training",
-    title: "Giuliana Zitella | Entrenamiento de fuerza online y presencial",
+    title: "Giuliana Zitella | Entrenamiento de fuerza online",
     description:
-      "Planes de fuerza a medida, seguimiento en la app y una coach que compite. Online o presencial.",
+      "Planes de fuerza online a medida, seguimiento en la app y una coach que compite.",
     images: [{ url: "/images/comp-smile.jpg", width: 1440, height: 960 }],
   },
   robots: { index: true, follow: true },
@@ -96,7 +94,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-AR" className={`${inter.variable} ${archivo.variable} ${newsreader.variable}`}>
+    <html lang="es-AR" className={`${inter.variable} ${geist.variable} ${newsreader.variable}`}>
       <body className="min-h-dvh bg-ink text-bone">
         <SmoothScroll />
         {children}

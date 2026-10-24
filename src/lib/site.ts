@@ -17,7 +17,6 @@ export const whatsappMessages = {
   general: "¡Hola Giuli! Quiero empezar a entrenar con vos.",
   starter: "¡Hola Giuli! Me interesa el plan Starter.",
   premium: "¡Hola Giuli! Me interesa el plan Premium.",
-  presencial: "¡Hola Giuli! Me interesa el entrenamiento presencial.",
   consulta: "¡Hola Giuli! Tengo una consulta.",
 } as const;
 
@@ -25,10 +24,11 @@ export function whatsappLink(message: string = whatsappMessages.general) {
   return `${site.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 
+// Mismo orden que las secciones de la página
 export const nav = [
-  { label: "Planes", href: "#planes" },
-  { label: "Método", href: "#metodo" },
-  { label: "App", href: "#app" },
   { label: "Resultados", href: "#resultados" },
+  { label: "Sobre mí", href: "#sobre-mi" },
+  { label: "Método", href: "#metodo" },
+  { label: "Planes", href: "#planes" },
   { label: "Preguntas", href: "#preguntas" },
 ];

@@ -15,7 +15,7 @@ export function Faq() {
       <div className="shell">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
-            <h2 className="display text-5xl sm:text-6xl">
+            <h2 className="display text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
               Preguntas
               <br />
               <em className="accent">frecuentes</em>
@@ -41,7 +41,7 @@ export function Faq() {
                         <motion.span
                           animate={{ rotate: isOpen ? 45 : 0 }}
                           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                          className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border ${
+                          className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${
                             isOpen ? "border-lilac text-lilac" : "border-line/15 text-bone"
                           }`}
                         >

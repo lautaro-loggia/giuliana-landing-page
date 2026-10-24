@@ -21,8 +21,8 @@ export type LandingTheme = "dark" | "light" | "mixed";
 
 type Section = "services" | "method" | "about" | "app" | "results" | "contact" | "faq";
 
-/** Secciones que van en blanco en la versión mixta. Cambiar acá para probar otras. */
-const mixedLight: Section[] = ["services", "about", "faq"];
+/** Secciones que van en blanco en la versión mixta (alternan con las oscuras). */
+const mixedLight: Section[] = ["about", "app", "faq"];
 
 export function Landing({ theme }: { theme: LandingTheme }) {
   const isLight = (section: Section) =>
@@ -37,15 +37,18 @@ export function Landing({ theme }: { theme: LandingTheme }) {
     <div data-page-theme={theme === "light" ? "light" : undefined}>
       <Nav />
       <main>
+        {/* El orden sigue las preguntas de quien evalúa contratar a Giuli:
+            ¿funciona? → ¿quién es? → ¿cómo se trabaja? → ¿qué contrato? →
+            dudas → empezar. El cierre va último, justo después de las dudas. */}
         <Hero />
         <PhotoMarquee />
-        {wrap("services", <Services />)}
-        {wrap("method", <Method />)}
-        {wrap("about", <About />)}
-        {wrap("app", <AppSection />)}
         {wrap("results", <Results />)}
-        {wrap("contact", <Contact />)}
+        {wrap("about", <About />)}
+        {wrap("method", <Method />)}
+        {wrap("app", <AppSection />)}
+        {wrap("services", <Services />)}
         {wrap("faq", <Faq />)}
+        {wrap("contact", <Contact />)}
       </main>
       <Footer />
     </div>

@@ -1,8 +1,7 @@
-import Image from "next/image";
 import { Check } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
-import { plans, presencial, type Plan } from "@/lib/content";
+import { plans, type Plan } from "@/lib/content";
 import { whatsappLink } from "@/lib/site";
 
 function Items({ items }: { items: string[] }) {
@@ -32,7 +31,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       <div className="flex items-center justify-between gap-3">
         <h3 className="display text-4xl md:text-5xl">{plan.name}</h3>
         {plan.featured && (
-          <span className="rounded-full bg-lilac px-3 py-1 text-xs font-semibold text-on-lilac">
+          <span className="rounded-md bg-lilac px-2.5 py-1 text-xs font-semibold text-on-lilac">
             Recomendado
           </span>
         )}
@@ -67,7 +66,7 @@ export function Services() {
       <div className="shell">
         <Reveal>
           <p className="eyebrow">Planes</p>
-          <h2 className="display mt-2 max-w-2xl text-4xl sm:text-5xl lg:text-[3.4rem]">
+          <h2 className="display mt-2 max-w-2xl text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
             Elegí cómo querés <em className="accent">entrenar</em>
           </h2>
           <p className="mt-4 max-w-[58ch] leading-relaxed text-bone-2">
@@ -83,30 +82,6 @@ export function Services() {
             </Reveal>
           ))}
 
-          {/* Presencial: a lo ancho, con la foto del grupo a la izquierda */}
-          <Reveal delay={0.16} className="md:col-span-2">
-            <article className="flex h-full flex-col overflow-hidden rounded-panel border border-line/8 bg-ink-2 md:flex-row">
-              <div className="relative aspect-[16/9] w-full shrink-0 md:aspect-auto md:min-h-[300px] md:w-[46%]">
-                <Image
-                  src="/images/team-bearfit.jpg"
-                  alt="Giuliana con su equipo de entrenamiento en una competencia"
-                  fill
-                  sizes="(min-width: 768px) 46vw, 100vw"
-                  className="object-cover object-[50%_30%]"
-                />
-              </div>
-              <div className="flex flex-1 flex-col justify-center p-6 md:p-8">
-                <h3 className="display-wide text-xl md:text-2xl">{presencial.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-bone-2">{presencial.lead}</p>
-                <Items items={presencial.items} />
-                <div className="pt-6">
-                  <ButtonLink href={whatsappLink(presencial.whatsappMessage)} variant="outline">
-                    Quiero mi lugar
-                  </ButtonLink>
-                </div>
-              </div>
-            </article>
-          </Reveal>
         </div>
       </div>
     </section>

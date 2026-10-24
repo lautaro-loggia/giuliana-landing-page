@@ -85,7 +85,7 @@ export function AppSection() {
       <div className="shell">
         <Reveal>
           <p className="eyebrow">La app</p>
-          <h2 className="display mt-2 max-w-2xl text-4xl sm:text-5xl lg:text-[3.4rem]">
+          <h2 className="display mt-2 max-w-2xl text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
             Tu plan en tu <em className="accent">celular</em>
           </h2>
           <p className="mt-4 max-w-[62ch] leading-relaxed text-bone-2">

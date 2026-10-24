@@ -6,7 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/site";
 
 const stats = [
-  { label: "Modalidad", value: "Online y presencial" },
+  { label: "Modalidad", value: "Online, desde la app" },
   { label: "Planes", value: "Starter y Premium" },
   { label: "Disciplinas", value: "CrossFit y levantamiento olímpico" },
 ];
@@ -51,7 +51,7 @@ export function About() {
 
         <div className="lg:col-span-7">
           <Reveal>
-            <h2 className="display text-5xl sm:text-6xl lg:text-[4.2rem]">
+            <h2 className="display text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
               Compito, entreno
               <br />y <em className="accent">acompaño.</em>
             </h2>

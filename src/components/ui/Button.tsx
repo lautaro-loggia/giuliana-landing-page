@@ -4,7 +4,7 @@ import type { ComponentProps } from "react";
 type Variant = "primary" | "ghost" | "outline";
 
 const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-[transform,background-color,color,border-color] duration-200 ease-out active:scale-[0.98] select-none";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition-[transform,background-color,color,border-color] duration-200 ease-out active:scale-[0.98] select-none";
 
 const variants: Record<Variant, string> = {
   primary: "bg-lilac text-on-lilac hover:bg-lilac-2 shadow-lilac",

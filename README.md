@@ -1,8 +1,8 @@
 # GZ Training · Landing de Giuliana Zitella
 
-Landing page en Next.js 16 (App Router, Turbopack), Tailwind CSS v4 y [Motion](https://motion.dev) para animaciones. Tema oscuro y un solo acento coral tomado de la identidad de GZ Training.
+Landing page en Next.js 16 (App Router, Turbopack), Tailwind CSS v4 y [Motion](https://motion.dev) para animaciones. Un solo acento lila, el color de la marca de Giuliana. La portada (`/`) es la versión blanca; la oscura está en `/oscura` y una oscura con secciones blancas en `/mixto` (las dos sin indexar).
 
-Tipografía en dos niveles: Archivo variable para los titulares (clase `.display`, condensada al 68% de ancho y peso 900; `.display-soft` baja a 450 para contrastar líneas dentro de un mismo titular) e Inter para cuerpo de texto, subtítulos, interfaz y la marca (clases `.display-wide` y `.wordmark`). El ancho máximo de la página vive en una sola clase, `.shell` en `src/app/globals.css`.
+Tipografía: Geist semibold para los titulares (clase `.display`; `.display-soft` baja a 400 para contrastar líneas dentro de un mismo titular), Newsreader cursiva para remarcar una palabra por título (`.accent`) e Inter para cuerpo de texto, subtítulos e interfaz (`.display-wide`). El ancho máximo de la página vive en una sola clase, `.shell` en `src/app/globals.css`.
 
 ## Correr el proyecto
 
