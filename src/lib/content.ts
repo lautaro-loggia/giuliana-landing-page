@@ -23,7 +23,7 @@ export const featuredCase: Testimonial & { before: Photo; after: Photo } = {
   // Resumen de su mensaje: "Cuando te hablé por primera vez, te dije que
   // quería cambiar mi vida y sumar hábitos saludables. Hoy entrenar es mi plan
   // de todos los días y me hace súper bien. ¡Gracias por eso!"
-  quote: "Quería cambiar mi vida y sumar hábitos saludables. Hoy entrenar es mi plan de todos los días.",
+  quote: "Quería cambiar mi vida y sumar hábitos saludables. Hoy entrenar es mi plan de todos los días y me hace súper bien 💖",
   before: {
     src: "/images/cambio-antes.jpg",
     alt: "La alumna antes de empezar, de frente, en su casa",
@@ -68,11 +68,11 @@ export const faqs = [
   },
   {
     q: "¿Cada cuánto cambia el plan?",
-    a: "Depende del plan. En el plan Full reviso lo que registrás en la app todas las semanas; en el Base, una vez por mes. En los dos, el bloque completo cambia cada 4 a 6 semanas.",
+    a: "En los dos planes reviso lo que registrás en la app y ajusto la rutina dos veces por mes.",
   },
   {
     q: "¿Qué diferencia hay entre Base y Full?",
-    a: "Los dos tienen un plan de fuerza armado para vos en la app. El Full suma check-in semanal, corrección de técnica con tus videos y check-ins con fotos y medidas. Si no sabés cuál te conviene, escribime y lo charlamos.",
+    a: "Los dos tienen tu rutina en la app, con videos y explicaciones de cada ejercicio, y ajustes dos veces por mes. El Full suma corrección de técnica con tus videos y consultas por WhatsApp. Si no sabés cuál te conviene, escribime y lo charlamos.",
   },
   {
     q: "¿Puedo entrenar embarazada o en posparto?",
@@ -105,13 +105,12 @@ export const plans: Plan[] = [
   {
     id: "base",
     name: "Base",
-    lead: "Para arrancar con una base sólida y entrenar con un plan pensado para vos.",
+    lead: "Tu rutina en la app, con videos y explicaciones de cada ejercicio.",
     items: [
-      "Plan de fuerza personalizado",
-      "Video y técnica de cada ejercicio",
+      "Plan de entrenamiento personalizado",
+      "Videos y explicación de cada ejercicio",
       "Registro de series y cargas en la app",
-      "Revisión y ajuste del plan una vez por mes",
-      "Bloque nuevo cada 4 a 6 semanas",
+      "Ajustes de la rutina dos veces por mes",
     ],
     cta: "Quiero Base",
     whatsappMessage: whatsappMessages.base,
@@ -119,13 +118,11 @@ export const plans: Plan[] = [
   {
     id: "full",
     name: "Full",
-    lead: "Seguimiento de cerca: ajustes cada semana y tu técnica revisada en video.",
+    lead: "Todo lo del Base, más tu técnica corregida y consultas directas conmigo.",
     includesLabel: "Todo lo de Base, más:",
     items: [
-      "Check-in semanal con ajustes",
       "Corrección de técnica con tus videos",
-      "Check-ins con fotos y medidas",
-      "Contacto directo por WhatsApp",
+      "Dudas y consultas por WhatsApp",
     ],
     cta: "Quiero Full",
     whatsappMessage: whatsappMessages.full,

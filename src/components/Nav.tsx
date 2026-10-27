@@ -55,7 +55,11 @@ export function Nav() {
         >
           <Link
             href="#top"
-            className="text-lilac transition-colors hover:text-lilac-2"
+            // Sobre la foto del hero va en blanco para que se lea; con el menú
+            // flotante (fondo claro) vuelve al lila
+            className={`transition-colors ${
+              solid || open ? "text-lilac hover:text-lilac-2" : "text-white hover:text-white/80"
+            }`}
             aria-label={`${site.name}, inicio`}
           >
             {/* Sin "TRAINING": a esta altura no se llega a leer */}
@@ -81,7 +85,9 @@ export function Nav() {
               size="sm"
               className={`text-xs sm:px-5 sm:text-sm ${open ? "invisible lg:visible" : ""}`}
             >
-              {site.ctaLabel}
+              {/* En pantallas muy chicas no entra el texto completo al lado del logo */}
+              <span className="min-[380px]:hidden">Empezar</span>
+              <span className="hidden min-[380px]:inline">{site.ctaLabel}</span>
             </StartButton>
             <button
               type="button"

@@ -46,7 +46,7 @@ const { srcSet: desktopSrcSet } = getImageProps({
 }).props;
 const { props: mobileImg } = getImageProps({
   ...shared,
-  src: "/images/hero-mobile.jpg",
+  src: "/images/hero-banco.jpg",
 });
 
 /**
@@ -109,7 +109,7 @@ export function Hero() {
                 mientras llega la foto definitiva, que se pinta encima */}
               <div
                 aria-hidden
-                className="absolute inset-0 scale-110 bg-cover bg-[position:45%_15%] blur-xl md:hidden"
+                className="absolute inset-0 scale-110 bg-cover bg-[position:50%_25%] blur-xl md:hidden"
                 style={{ backgroundImage: `url(${heroMobileBlur})` }}
               />
               <div
@@ -127,11 +127,11 @@ export function Hero() {
                 />
                 <img
                   {...mobileImg}
-                  alt="Giuliana Zitella antes de entrenar al aire libre"
+                  alt="Giuliana Zitella, preparadora física"
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
-                  className="object-cover object-[45%_15%] md:object-[68%_30%]"
+                  className="object-cover object-[50%_25%] md:object-[68%_30%]"
                 />
               </picture>
             </div>

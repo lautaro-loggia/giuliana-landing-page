@@ -29,7 +29,7 @@ const steps = [
     icon: ArrowsClockwise,
     title: "Ajustamos",
     body:
-      "Reviso tus registros y adapto el plan a cómo venís: cada semana en el plan Full, cada mes en el Base. Si algo no funciona, cambia.",
+      "Reviso tus registros y ajusto la rutina dos veces por mes, según cómo venís. Si algo no funciona, cambia.",
   },
 ];
 
@@ -94,7 +94,7 @@ export function Method() {
           <div className="lg:sticky lg:top-32">
             {/* Título y bajada centrados en mobile, a la izquierda en desktop */}
             <Reveal className="text-center lg:text-left">
-              <h2 className="display text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
+              <h2 className="display text-[1.75rem] min-[380px]:text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
                 ¿Cómo es
                 <br />
                 el <em className="accent">proceso?</em>

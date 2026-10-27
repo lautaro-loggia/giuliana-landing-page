@@ -17,7 +17,7 @@ export function Faq() {
           <Reveal className="lg:col-span-4">
             {/* Centrado en mobile; en desktop va a la izquierda y acompaña mientras
                 se recorren las preguntas */}
-            <h2 className="display text-center text-4xl sm:text-[2.75rem] lg:sticky lg:top-32 lg:text-left lg:text-[3.25rem]">
+            <h2 className="display text-center text-[1.75rem] min-[380px]:text-4xl sm:text-[2.75rem] lg:sticky lg:top-32 lg:text-left lg:text-[3.25rem]">
               Preguntas
               <br />
               <em className="accent">frecuentes</em>

@@ -50,7 +50,7 @@ function FeaturedCase() {
   return (
     <article
       ref={ref}
-      className="relative aspect-[4/5] w-full overflow-hidden rounded-panel bg-ink-3 text-white md:aspect-auto md:h-full md:min-h-[400px]"
+      className="relative aspect-[4/5] w-full overflow-hidden rounded-panel bg-ink-3 text-white lg:aspect-auto lg:h-full lg:min-h-[400px]"
     >
       {photos.map((p) => (
         <Image
@@ -105,7 +105,7 @@ function FeaturedCase() {
           initial={reduce ? false : "hidden"}
           animate={quoteSeen ? "show" : "hidden"}
           aria-label={`“${featuredCase.quote}”`}
-          className="display text-[1.55rem] leading-[1.12] sm:text-3xl md:text-[1.6rem] xl:text-[1.85rem]"
+          className="display text-[1.55rem] leading-[1.12] sm:text-3xl md:text-[1.5rem] xl:text-[1.85rem]"
         >
           {`“${featuredCase.quote}”`.split(" ").map((w, i) => (
             // El espacio va afuera del span: es lo que deja cortar la línea
@@ -123,10 +123,10 @@ function FeaturedCase() {
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <article className="flex h-full flex-col justify-between gap-5 rounded-panel border border-line/8 bg-ink-2 p-6">
+    <article className="flex h-full flex-col justify-between gap-5 rounded-panel border border-line/8 bg-card p-6">
       <div>
         <Quotes size={24} weight="fill" className="text-lilac" />
-        <p className="mt-3 text-base leading-relaxed text-bone">{t.quote}</p>
+        <p className="mt-3 text-base leading-snug text-bone">{t.quote}</p>
       </div>
       <footer className="border-t hairline pt-3.5">
         <p className="font-semibold">{t.name}</p>
@@ -228,7 +228,7 @@ export function Results() {
       <div className="shell">
         <Reveal>
           <p className="eyebrow">Resultados</p>
-          <h2 className="display mt-3 max-w-3xl text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
+          <h2 className="display mt-3 max-w-3xl text-[1.75rem] min-[380px]:text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
             Cambios que se ven
             <br className="md:hidden" /> y se <em className="accent">sienten</em>
           </h2>
@@ -236,11 +236,11 @@ export function Results() {
 
         {/* En desktop la sección entera entra en una pantalla: la grilla toma el
             alto que queda debajo del menú y el título */}
-        <div className="mt-8 grid grid-cols-1 gap-4 md:mt-6 md:h-[calc(100svh-16rem)] md:max-h-[460px] md:grid-cols-12 md:gap-5">
-          <Reveal className="md:order-last md:col-span-5">
+        <div className="mt-8 grid grid-cols-1 gap-4 md:mt-6 md:grid-cols-2 md:gap-5 lg:h-[calc(100svh-16rem)] lg:max-h-[460px] lg:grid-cols-12">
+          <Reveal className="md:order-last lg:col-span-5">
             <FeaturedCase />
           </Reveal>
-          <div className="md:col-span-7">
+          <div className="lg:col-span-7">
             <TestimonialList />
           </div>
         </div>

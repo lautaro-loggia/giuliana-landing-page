@@ -12,6 +12,7 @@
 @theme {
   --color-ink: #0d0b10;
   --color-ink-2: #15121a;
+  --color-card: #15121a;
   --color-ink-3: #1e1a24;
   --color-ink-4: #2b2632;
   --color-bone: #f2eff6;
@@ -80,6 +81,7 @@
 html:has([data-page-theme="light"]) {
   --color-ink: #fbf9fd;
   --color-ink-2: #f3eff8;
+  --color-card: #ffffff;
   --color-ink-3: #e9e3f1;
   --color-ink-4: #dcd4e7;
   --color-bone: #18141d;
@@ -101,6 +103,7 @@ html:has([data-page-theme="light"]) {
 .theme-dark {
   --color-ink: #0d0b10;
   --color-ink-2: #15121a;
+  --color-card: #15121a;
   --color-ink-3: #1e1a24;
   --color-ink-4: #2b2632;
   --color-bone: #f2eff6;

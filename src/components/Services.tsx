@@ -69,7 +69,7 @@ export function Services() {
       <div className="shell">
         {/* Título centrado y los planes debajo, en un ancho más contenido */}
         <Reveal className="text-center">
-          <h2 className="display mx-auto max-w-2xl text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
+          <h2 className="display mx-auto max-w-2xl text-[1.75rem] min-[380px]:text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
             Elegí cómo querés <em className="accent">empezar</em>
           </h2>
           <p className="mx-auto mt-4 max-w-[52ch] leading-relaxed text-bone-2">

@@ -9,7 +9,7 @@ import { site } from "@/lib/site";
 const stats = [
   { icon: DeviceMobile, label: "Modalidad", value: "Online, desde la app" },
   { icon: Stack, label: "Planes", value: "Base y Full" },
-  { icon: Barbell, label: "Disciplinas", value: "CrossFit y halterofilia" },
+  { icon: Barbell, label: "Disciplinas", value: "Musculación, fuerza, CrossFit, halterofilia y acondicionamiento físico" },
 ];
 
 export function About() {
@@ -32,7 +32,7 @@ export function About() {
       className="scroll-mt-24 section-line py-24 md:py-32"
     >
       <div className="shell grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-        <Reveal className="lg:col-span-5">
+        <Reveal className="w-full md:mx-auto md:max-w-[28rem] lg:col-span-5 lg:max-w-none">
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-panel bg-ink-2">
             <motion.div style={{ y }} className="absolute inset-[-6%]">
               {/* Video de competencia, sin sonido y en loop. Con movimiento
@@ -55,7 +55,7 @@ export function About() {
 
         <div className="lg:col-span-7">
           <Reveal>
-            <h2 className="display text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
+            <h2 className="display text-[1.75rem] min-[380px]:text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
               Compito, entreno
               <br />y <em className="accent">acompaño.</em>
             </h2>
