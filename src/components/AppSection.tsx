@@ -81,14 +81,14 @@ export function AppSection() {
   });
 
   return (
-    <section id="app" className="scroll-mt-24 py-20 md:py-24">
+    <section id="app" className="scroll-mt-24 section-line py-20 md:py-24">
       <div className="shell">
-        <Reveal>
-          <p className="eyebrow">La app</p>
-          <h2 className="display mt-2 max-w-2xl text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
+        {/* Centrado en mobile, a la izquierda desde tablet */}
+        <Reveal className="text-center md:text-left">
+          <h2 className="display mx-auto max-w-2xl text-4xl md:mx-0 sm:text-[2.75rem] lg:text-[3.25rem]">
             Tu plan en tu <em className="accent">celular</em>
           </h2>
-          <p className="mt-4 max-w-[62ch] leading-relaxed text-bone-2">
+          <p className="mx-auto mt-4 max-w-[62ch] leading-relaxed text-bone-2 md:mx-0">
             Cada sesión, los videos y tu progreso, en un solo lugar.
             Yo reviso lo que registrás y ajusto el plan desde ahí.
           </p>
@@ -97,11 +97,11 @@ export function AppSection() {
         <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-12 md:grid-rows-[auto_auto] md:gap-5">
           <Reveal className="relative min-h-[320px] overflow-hidden rounded-panel bg-ink-2 md:col-span-5 md:row-span-2 md:min-h-0">
             <Image
-              src="/images/box-rodilla.jpg"
-              alt="Giuliana con una rodilla apoyada sobre la colchoneta en el box, con muñequeras rosas"
+              src="/images/box-pelota.jpg"
+              alt="Giuliana sentada en el piso del box con una pelota medicinal"
               fill
               sizes="(min-width: 768px) 40vw, 100vw"
-              className="object-cover object-[50%_60%]"
+              className="object-cover object-[50%_45%]"
             />
           </Reveal>
 

@@ -10,8 +10,8 @@ import {
   useScroll,
 } from "motion/react";
 import { List, X } from "@phosphor-icons/react";
-import { nav, site, whatsappLink } from "@/lib/site";
-import { ButtonLink } from "@/components/ui/Button";
+import { nav, site } from "@/lib/site";
+import { StartButton } from "@/components/StartForm";
 import { LogoWordmark } from "@/components/ui/Logo";
 
 export function Nav() {
@@ -76,16 +76,20 @@ export function Nav() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <ButtonLink href={whatsappLink()} className="px-4 text-xs sm:px-5 sm:text-sm">
+            {/* Con el menú abierto se oculta: el menú ya trae su propio botón */}
+            <StartButton
+              size="sm"
+              className={`text-xs sm:px-5 sm:text-sm ${open ? "invisible lg:visible" : ""}`}
+            >
               {site.ctaLabel}
-            </ButtonLink>
+            </StartButton>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? "Cerrar menú" : "Abrir menú"}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line/15 text-bone lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl text-bone lg:hidden"
             >
               {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
             </button>
@@ -113,21 +117,16 @@ export function Nav() {
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className="display block py-3 text-3xl text-bone"
+                      className="display block py-2 text-[1.375rem] text-bone"
                     >
                       {item.label}
                     </Link>
                   </motion.li>
                 ))}
                 <li className="pt-3">
-                  <ButtonLink
-                    href={whatsappLink()}
-                    size="lg"
-                    className="w-full"
-                    onClick={() => setOpen(false)}
-                  >
+                  <StartButton size="lg" className="w-full" onClick={() => setOpen(false)}>
                     {site.ctaLabel}
-                  </ButtonLink>
+                  </StartButton>
                 </li>
               </ul>
             </motion.div>

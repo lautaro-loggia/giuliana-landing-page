@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     template: "%s | GZ Training",
   },
   description:
-    "Entrená con Giuliana Zitella, fitness coach y atleta de CrossFit. Planes de fuerza online Starter y Premium, con seguimiento desde la app.",
+    "Entrená con Giuliana Zitella, fitness coach y atleta de CrossFit. Planes de fuerza online Base y Full, con seguimiento desde la app.",
   keywords: [
     "personal trainer",
     "entrenamiento online",
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     title: "Giuliana Zitella | Entrenamiento de fuerza online",
     description:
       "Planes de fuerza online a medida, seguimiento en la app y una coach que compite.",
-    images: [{ url: "/images/comp-smile.jpg", width: 1440, height: 960 }],
+    images: [{ url: "/images/comp-smile.jpg", width: 1800, height: 1200 }],
   },
   robots: { index: true, follow: true },
 };

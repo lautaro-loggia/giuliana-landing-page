@@ -1,10 +1,17 @@
 "use client";
 
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { site, whatsappLink } from "@/lib/site";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "motion/react";
+import { site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/Button";
+import { StartButton } from "@/components/StartForm";
+import { heroDesktopBlur, heroMobileBlur } from "@/lib/hero-placeholders";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 /** Curva de la apertura: arranca y frena suave, como un telón */
@@ -14,13 +21,33 @@ const OPEN_DURATION = 1.25;
 /* El texto entra recién cuando la foto terminó de abrirse */
 const stagger = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: OPEN_DURATION - 0.25 } },
+  show: {
+    transition: { staggerChildren: 0.1, delayChildren: OPEN_DURATION - 0.25 },
+  },
 };
 
 const rise = {
   hidden: { opacity: 0, y: 28, filter: "blur(10px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.9, ease } },
+  show: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease },
+  },
 };
+
+// Mobile y desktop usan fotos distintas. Con getImageProps se arma un único
+// <picture>: el navegador elige una sola fuente y baja solo esa, en vez de las
+// dos que bajaban como dos <Image> con prioridad.
+const shared = { fill: true, quality: 90, sizes: "100vw", alt: "" } as const;
+const { srcSet: desktopSrcSet } = getImageProps({
+  ...shared,
+  src: "/images/hero-exterior.jpg",
+}).props;
+const { props: mobileImg } = getImageProps({
+  ...shared,
+  src: "/images/hero-mobile.jpg",
+});
 
 /**
  * Hero a pantalla completa con la foto de fondo, sin color encima: solo un
@@ -41,12 +68,24 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
   // La foto se mueve más lento que la página: da profundidad sin distraer.
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "10%"]);
-  const copyY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-8%"]);
+  const imgY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", reduce ? "0%" : "10%"],
+  );
+  const copyY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", reduce ? "0%" : "-8%"],
+  );
   const fade = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
   return (
-    <section id="top" ref={ref} className="relative h-[100svh] min-h-[600px] p-2 md:p-3">
+    <section
+      id="top"
+      ref={ref}
+      className="relative h-[100svh] min-h-[600px] p-2 md:p-3"
+    >
       <motion.div
         initial={reduce ? false : { clipPath: "inset(9% 7% 9% 7% round 2rem)" }}
         animate={{ clipPath: "inset(0% 0% 0% 0% round 1.5rem)" }}
@@ -54,33 +93,48 @@ export function Hero() {
         className="theme-dark relative h-full overflow-hidden rounded-[1.5rem] bg-ink text-bone"
       >
         {/* Parallax por fuera, zoom de entrada por dentro: no se pisan */}
-        <motion.div style={{ y: imgY }} className="absolute inset-x-0 top-0 -bottom-[12%]">
+        <motion.div
+          style={{ y: imgY }}
+          className="absolute inset-x-0 top-0 -bottom-[12%]"
+        >
           <motion.div
             initial={reduce ? false : { scale: 1.18 }}
             animate={{ scale: 1 }}
             transition={{ duration: OPEN_DURATION + 0.3, ease: opening }}
             className="absolute inset-0"
           >
-            {/* Mobile: una foto vertical, así no hay que recortar de más la
-                apaisada. Giuliana queda arriba y el texto se apoya abajo. */}
-            <Image
-              src="/images/hero-mobile.jpg"
-              alt="Giuliana Zitella sentada en un banco, mirando hacia adelante antes de entrenar"
-              fill
-              priority
-              quality={90}
-              sizes="100vw"
-              className="object-cover object-[45%_15%] md:hidden"
-            />
-            <Image
-              src="/images/hero-exterior.jpg"
-              alt="Giuliana Zitella atándose el pelo antes de entrenar al aire libre"
-              fill
-              priority
-              quality={90}
-              sizes="100vw"
-              className="hidden object-cover object-[68%_30%] md:block"
-            />
+            {/* Después de la apertura, un zoom lento que va y vuelve en loop */}
+            <div className="hero-breathe absolute inset-0">
+              {/* Versión mínima desenfocada, en el mismo HTML: se ve al instante
+                mientras llega la foto definitiva, que se pinta encima */}
+              <div
+                aria-hidden
+                className="absolute inset-0 scale-110 bg-cover bg-[position:45%_15%] blur-xl md:hidden"
+                style={{ backgroundImage: `url(${heroMobileBlur})` }}
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 hidden scale-110 bg-cover bg-[position:68%_30%] blur-xl md:block"
+                style={{ backgroundImage: `url(${heroDesktopBlur})` }}
+              />
+              {/* Una sola foto según la pantalla: vertical en mobile, apaisada en
+                desktop. El <picture> hace que cada dispositivo baje solo la suya */}
+              <picture>
+                <source
+                  media="(min-width: 48rem)"
+                  srcSet={desktopSrcSet}
+                  sizes="100vw"
+                />
+                <img
+                  {...mobileImg}
+                  alt="Giuliana Zitella antes de entrenar al aire libre"
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
+                  className="object-cover object-[45%_15%] md:object-[68%_30%]"
+                />
+              </picture>
+            </div>
           </motion.div>
         </motion.div>
 
@@ -88,9 +142,18 @@ export function Hero() {
             y arriba un toque para el menú */}
         {/* Mobile: el texto va abajo, ahí el velo es más fuerte. Desktop: el
             texto va a la izquierda, el velo baja suave y se corta antes de la cara */}
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(to_top,rgb(0_0_0/0.75),rgb(0_0_0/0.25)_45%,transparent_70%)] md:bg-[linear-gradient(to_top,rgb(0_0_0/0.35),transparent_40%)]" />
-        <div aria-hidden className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgb(0_0_0/0.5),rgb(0_0_0/0.2)_40%,transparent_62%)] md:block" />
-        <div aria-hidden className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/30 to-transparent" />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-[linear-gradient(to_top,rgb(0_0_0/0.75),rgb(0_0_0/0.25)_45%,transparent_70%)] md:bg-[linear-gradient(to_top,rgb(0_0_0/0.35),transparent_40%)]"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 hidden bg-[linear-gradient(to_right,rgb(0_0_0/0.5),rgb(0_0_0/0.2)_40%,transparent_62%)] md:block"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/30 to-transparent"
+        />
 
         {/* Mobile: el texto abajo (la cara ocupa la parte de arriba).
             Desktop: centrado en la altura, apenas corrido hacia abajo por el menú */}
@@ -112,22 +175,26 @@ export function Hero() {
               <br />
               <span className="display-soft">empieza el lunes.</span>
               <br />
-              <em className="accent accent-inherit accent-strong">Empieza hoy.</em>
+              <em className="accent accent-inherit">Empieza hoy.</em>
             </motion.h1>
 
             <motion.p
               variants={rise}
               className="mt-6 max-w-[34rem] text-base leading-relaxed text-bone-2 md:text-lg"
             >
-              Entrenamiento de fuerza online, con un plan a tu medida
-              y seguimiento desde la app para que progreses de verdad.
+              Entrenamiento de fuerza online, con un plan a tu medida y
+              seguimiento desde la app para que progreses de verdad.
             </motion.p>
 
-            <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-3">
-              <ButtonLink href={whatsappLink()} size="lg">
+            <motion.div
+              variants={rise}
+              className="mt-8 flex flex-wrap items-center gap-3"
+            >
+              {/* En mobile los dos botones van a lo ancho, uno debajo del otro */}
+              <StartButton size="lg" className="w-full sm:w-auto">
                 {site.ctaLabel}
-              </ButtonLink>
-              <ButtonLink href="#planes" size="lg" variant="outline">
+              </StartButton>
+              <ButtonLink href="#planes" size="lg" variant="outline" className="w-full sm:w-auto">
                 Ver planes
               </ButtonLink>
             </motion.div>

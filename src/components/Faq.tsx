@@ -11,11 +11,13 @@ export function Faq() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="preguntas" className="scroll-mt-24 py-24 md:py-32">
+    <section id="preguntas" className="scroll-mt-24 section-line py-24 md:py-32">
       <div className="shell">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
-            <h2 className="display text-4xl sm:text-[2.75rem] lg:text-[3.25rem]">
+            {/* Centrado en mobile; en desktop va a la izquierda y acompaña mientras
+                se recorren las preguntas */}
+            <h2 className="display text-center text-4xl sm:text-[2.75rem] lg:sticky lg:top-32 lg:text-left lg:text-[3.25rem]">
               Preguntas
               <br />
               <em className="accent">frecuentes</em>

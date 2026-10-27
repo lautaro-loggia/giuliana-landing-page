@@ -4,7 +4,7 @@ import type { ComponentProps } from "react";
 type Variant = "primary" | "ghost" | "outline";
 
 const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition-[transform,background-color,color,border-color] duration-200 ease-out active:scale-[0.98] select-none";
+  "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition-[transform,background-color,color,border-color] duration-200 ease-out active:scale-[0.98] select-none";
 
 const variants: Record<Variant, string> = {
   primary: "bg-lilac text-on-lilac hover:bg-lilac-2 shadow-lilac",
@@ -13,9 +13,15 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes = {
+  sm: "h-10 px-4 text-sm",
   md: "h-11 px-5 text-sm",
   lg: "h-13 px-7 text-base",
 };
+
+/** Las mismas clases que ButtonLink, para un <button> o un <a> propio */
+export function buttonClass(variant: Variant = "primary", size: keyof typeof sizes = "md") {
+  return `${base} ${variants[variant]} ${sizes[size]}`;
+}
 
 type ButtonLinkProps = ComponentProps<typeof Link> & {
   variant?: Variant;

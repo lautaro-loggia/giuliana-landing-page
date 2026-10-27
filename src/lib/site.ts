@@ -6,7 +6,7 @@ export const site = {
   instagramHandle: "@giulianazitella",
   whatsapp: "https://wa.me/5491161740977",
   whatsappLabel: "+54 9 11 6174-0977",
-  ctaLabel: "Quiero empezar",
+  ctaLabel: "Empezar mi cambio",
 };
 
 /**
@@ -15,8 +15,8 @@ export const site = {
  */
 export const whatsappMessages = {
   general: "¡Hola Giuli! Quiero empezar a entrenar con vos.",
-  starter: "¡Hola Giuli! Me interesa el plan Starter.",
-  premium: "¡Hola Giuli! Me interesa el plan Premium.",
+  base: "¡Hola Giuli! Me interesa el plan Base.",
+  full: "¡Hola Giuli! Me interesa el plan Full.",
   consulta: "¡Hola Giuli! Tengo una consulta.",
 } as const;
 

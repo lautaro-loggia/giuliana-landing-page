@@ -106,12 +106,14 @@ html:has([data-page-theme="light"]) {
   --color-bone: #f2eff6;
   --color-bone-2: #d8d3df;
   --color-muted: #a29cab;
-  --color-lilac: #b8a1f3;
-  --color-lilac-2: #cbb9f8;
-  --color-lilac-3: #8e72dd;
-  --color-on-lilac: #0d0b10;
+  /* El mismo lila que en el resto de la web (botones con texto blanco); al
+     pasar el mouse se aclara, porque sobre oscuro oscurecer no se nota */
+  --color-lilac: #7d5bd8;
+  --color-lilac-2: #8f70e0;
+  --color-lilac-3: #6a47c9;
+  --color-on-lilac: #ffffff;
   --color-line: #ffffff;
-  --shadow-lilac: 0 20px 60px -20px rgb(184 161 243 / 0.4);
+  --shadow-lilac: 0 20px 50px -24px rgb(125 91 216 / 0.45);
   color-scheme: dark;
 }
 
@@ -167,7 +169,8 @@ body {
 .accent {
   font-family: var(--font-serif);
   font-style: italic;
-  font-weight: 400;
+  /* Mismo peso en toda la web que en el remate del hero */
+  font-weight: 600;
   font-stretch: normal;
   font-variation-settings: "opsz" 72;
   font-size: 1.12em;
@@ -180,11 +183,6 @@ body {
 /* Misma serif cursiva pero en el color del texto, sin el lila */
 .accent-inherit {
   color: inherit;
-}
-
-/* Más peso para cuando la serif carga una línea entera (el remate del hero) */
-.accent-strong {
-  font-weight: 600;
 }
 
 /* Subtítulos y elementos de interfaz: Inter, para que se lean rápido */
@@ -216,36 +214,6 @@ body {
 
 /* Visor estilo historia: la barra activa se llena y la foto hace un zoom
    lento hacia atrás. El componente pausa las dos con animation-play-state. */
-.story-progress {
-  animation-name: story-progress;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes story-progress {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-.story-zoom {
-  animation-name: story-zoom;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes story-zoom {
-  from {
-    transform: scale(1.07);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
 /* Fine grain on a fixed, inert layer */
 .grain {
   pointer-events: none;
@@ -331,5 +299,78 @@ body {
   .bento-card .bento-icon,
   .bento-card .bento-body {
     transition: none;
+  }
+}
+
+/* Formulario previo a WhatsApp: sube desde abajo en mobile, aparece en desktop */
+.start-form[open] {
+  animation: start-form-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.start-form[open]::backdrop {
+  animation: start-form-fade 0.3s ease-out;
+}
+.start-form.closing {
+  animation: start-form-out 0.28s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+.start-form.closing::backdrop {
+  animation: start-form-fade-out 0.28s ease-in forwards;
+}
+@keyframes start-form-out {
+  to { opacity: 0; transform: translateY(48px); }
+}
+@keyframes start-form-fade-out {
+  to { opacity: 0; }
+}
+@keyframes start-form-in {
+  from { opacity: 0; transform: translateY(32px); }
+}
+@keyframes start-form-fade {
+  from { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .start-form[open],
+  .start-form[open]::backdrop,
+  .start-form.closing,
+  .start-form.closing::backdrop { animation: none; }
+}
+
+/* Hero: zoom lento de ida y vuelta, arranca cuando terminó la apertura */
+.hero-breathe {
+  animation: hero-breathe 18s ease-in-out 1.6s infinite;
+  will-change: transform;
+}
+@keyframes hero-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-breathe { animation: none; }
+}
+
+/* Línea muy leve entre secciones, del mismo ancho que el contenido (.shell) */
+.section-line {
+  position: relative;
+}
+.section-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(min(1180px, 100%) - 2.5rem);
+  height: 1px;
+  transform: translateX(-50%);
+  background: color-mix(in oklab, var(--color-line) 8%, transparent);
+}
+@media (width >= 48rem) {
+  .section-line::before {
+    width: calc(min(1180px, 100%) - 4rem);
+  }
+}
+
+/* Tailwind v4 deja los botones con la flecha: todo lo que se toca lleva la manito */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 }

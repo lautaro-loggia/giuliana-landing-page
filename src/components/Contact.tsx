@@ -1,11 +1,10 @@
 import { WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/motion/Reveal";
-import { ButtonLink } from "@/components/ui/Button";
-import { StoryViewer, type Story } from "@/components/StoryViewer";
-import { whatsappLink } from "@/lib/site";
+import { PhotoFade, type FadePhoto } from "@/components/PhotoFade";
+import { StartButton } from "@/components/StartForm";
 
-/** Fotos de la historia: box, aire libre y competencia */
-const stories: Story[] = [
+/** Fotos que se van fundiendo en el cierre: box, aire libre y competencia */
+const photos: FadePhoto[] = [
   { src: "/images/cierre-paralelas.jpg", alt: "Giuliana haciendo flexiones sobre paralelas al aire libre", position: "40% 35%" },
   { src: "/images/box-discos-retrato.jpg", alt: "Giuliana apoyada sobre una torre de discos en el box", position: "50% 45%" },
   { src: "/images/exterior-banco.jpg", alt: "Giuliana descansando en un banco al aire libre", position: "45% 40%" },
@@ -21,18 +20,19 @@ const stories: Story[] = [
  */
 export function Contact() {
   return (
-    <section id="contacto" className="scroll-mt-24 py-16 md:py-24">
+    <section id="contacto" className="scroll-mt-24 section-line py-16 md:py-24">
       <div className="shell">
         <Reveal>
           <div className="theme-dark grid grid-cols-1 overflow-hidden rounded-[1.75rem] bg-ink text-bone md:grid-cols-12">
-            {/* Historias: arriba en mobile, a la derecha en desktop */}
-            <div className="flex items-center justify-center p-3 md:order-last md:col-span-5 md:p-6">
-              <div className="w-full max-w-[340px]">
-                <StoryViewer stories={stories} />
-              </div>
+            {/* Fotos fundidas con el panel: arriba en mobile (se desvanecen hacia
+                abajo), a la derecha en desktop (se desvanecen hacia la izquierda) */}
+            <div className="relative min-h-[340px] sm:min-h-[420px] md:order-last md:col-span-5 md:min-h-[520px]">
+              <PhotoFade photos={photos} sizes="(min-width: 768px) 42vw, 100vw" />
+              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent md:bg-gradient-to-r md:via-ink/25" />
+              <div aria-hidden className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-ink/50 to-transparent md:hidden" />
             </div>
 
-            <div className="flex flex-col justify-center px-6 pb-10 pt-6 md:col-span-7 md:px-12 md:py-16 lg:px-16">
+            <div className="relative z-10 -mt-16 flex flex-col justify-center px-6 pb-10 md:col-span-7 md:mt-0 md:px-12 md:py-16 lg:px-16">
               <p className="eyebrow">El primer paso</p>
               <h2 className="display mt-3 text-[2.05rem] sm:text-[2.75rem] lg:text-[3.25rem]">
                 Tu cambio empieza
@@ -44,10 +44,10 @@ export function Contact() {
                 armamos tu plan.
               </p>
               <div className="mt-9 flex flex-col items-start gap-3">
-                <ButtonLink href={whatsappLink()} size="lg">
+                <StartButton size="lg">
                   <WhatsappLogo size={20} weight="fill" />
-                  Quiero empezar mi cambio
-                </ButtonLink>
+                  Empezar mi cambio hoy
+                </StartButton>
                 <p className="text-sm text-bone-2">Sin compromiso · Para cualquier nivel</p>
               </div>
             </div>

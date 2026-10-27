@@ -1,14 +1,15 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { Barbell, DeviceMobile, Stack } from "@phosphor-icons/react";
 import { Reveal } from "@/components/motion/Reveal";
 import { site } from "@/lib/site";
 
 const stats = [
-  { label: "Modalidad", value: "Online, desde la app" },
-  { label: "Planes", value: "Starter y Premium" },
-  { label: "Disciplinas", value: "CrossFit y levantamiento olímpico" },
+  { icon: DeviceMobile, label: "Modalidad", value: "Online, desde la app" },
+  { icon: Stack, label: "Planes", value: "Base y Full" },
+  { icon: Barbell, label: "Disciplinas", value: "CrossFit y halterofilia" },
 ];
 
 export function About() {
@@ -20,12 +21,15 @@ export function About() {
   });
   // Recorte alto: el video se desplaza dentro de su marco mientras la sección pasa.
   const y = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-6%", "6%"]);
+  // El video pesa: se pide recién cuando la sección se acerca, así no le
+  // disputa la conexión al hero al abrir la página.
+  const near = useInView(ref, { once: true, margin: "600px 0px" });
 
   return (
     <section
       id="sobre-mi"
       ref={ref}
-      className="scroll-mt-24 border-t hairline py-24 md:py-32"
+      className="scroll-mt-24 section-line py-24 md:py-32"
     >
       <div className="shell grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
         <Reveal className="lg:col-span-5">
@@ -34,10 +38,10 @@ export function About() {
               {/* Video de competencia, sin sonido y en loop. Con movimiento
                   reducido no arranca solo: queda el cuadro de portada. */}
               <video
-                key={reduce ? "quieto" : "loop"}
-                src="/videos/competencia.mp4"
+                key={reduce ? "quieto" : near ? "loop" : "espera"}
+                src={near ? "/videos/competencia.mp4" : undefined}
                 poster="/videos/competencia-poster.jpg"
-                autoPlay={!reduce}
+                autoPlay={!reduce && near}
                 muted
                 loop
                 playsInline
@@ -68,13 +72,21 @@ export function About() {
                 meses.
               </p>
             </div>
-            <dl className="mt-10 grid grid-cols-2 gap-6 border-t hairline pt-6 sm:grid-cols-3">
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <dt className="text-xs uppercase tracking-[0.14em] text-muted">
-                    {s.label}
-                  </dt>
-                  <dd className="mt-1 font-semibold">{s.value}</dd>
+            {/* Cada dato en su tarjeta con ícono: en mobile, una lista; en
+                desktop, tres columnas */}
+            <dl className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {stats.map(({ icon: Icon, label, value }) => (
+                <div
+                  key={label}
+                  className="flex items-center gap-4 rounded-2xl border border-line/8 bg-ink-2 p-4 sm:flex-col sm:items-start sm:gap-3 sm:p-5"
+                >
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-lilac/12 text-lilac">
+                    <Icon size={22} weight="duotone" />
+                  </span>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.14em] text-muted">{label}</dt>
+                    <dd className="mt-0.5 font-semibold leading-snug">{value}</dd>
+                  </div>
                 </div>
               ))}
             </dl>

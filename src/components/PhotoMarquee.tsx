@@ -13,14 +13,16 @@ import {
 // Sesión de fotos en el box intercalada con fotos de competencia
 const photos = [
   { src: "/images/box-discos-apoyada.jpg", alt: "Giuliana apoyada sobre una torre de discos en el box", w: 1600, h: 2000 },
-  { src: "/images/wtc-pullups.jpg", alt: "Giuliana en la barra durante una competencia de CrossFit", w: 1440, h: 1520 },
+  { src: "/images/wtc-pullups.jpg", alt: "Giuliana en la barra durante una competencia de CrossFit", w: 1600, h: 1689 },
   { src: "/images/box-colchoneta.jpg", alt: "Giuliana en la colchoneta con muñequeras, mirando a cámara", w: 1333, h: 2000 },
   { src: "/images/exterior-paralelas.jpg", alt: "Giuliana entrenando con paralelas al aire libre", w: 1600, h: 2000 },
-  { src: "/images/comp-lift.jpg", alt: "Levantamiento en competencia de CrossFit", w: 720, h: 900 },
+  { src: "/images/comp-lift.jpg", alt: "Giuliana levantando la barra en una competencia de CrossFit", w: 1600, h: 2000 },
   { src: "/images/box-barra.jpg", alt: "Giuliana apoyada sobre una barra olímpica", w: 1333, h: 2000 },
+  { src: "/images/comp-sonrisa.jpg", alt: "Giuliana sonriendo con el brazo en alto después de una prueba en competencia", w: 1600, h: 2000 },
   { src: "/images/box-disco-frente.jpg", alt: "Giuliana sosteniendo un disco frente a la torre de discos", w: 1600, h: 2000 },
   { src: "/images/bar-muscleup.jpg", alt: "Bar muscle-up en competencia", w: 1440, h: 1546 },
   { src: "/images/box-v-up.jpg", alt: "Giuliana haciendo abdominales en V sobre la colchoneta", w: 1333, h: 2000 },
+  { src: "/images/comp-equipo.jpg", alt: "Giuliana con su equipo en una competencia de CrossFit", w: 1600, h: 2000 },
   { src: "/images/exterior-banco.jpg", alt: "Giuliana descansando en un banco al aire libre", w: 1333, h: 2000 },
 ];
 
