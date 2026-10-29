@@ -62,16 +62,17 @@ export const metadata: Metadata = {
     title: "Giuliana Zitella | Personal trainer online",
     description:
       "Tu cambio no empieza el lunes. Empieza hoy. Plan de entrenamiento a tu medida, en la app y con seguimiento.",
+    // Pieza armada para compartir: marca, el lema del hero y la foto de Giuli
     images: [
       {
-        url: "/images/comp-smile.jpg",
-        width: 1800,
-        height: 1200,
-        alt: "Giuliana Zitella sonriendo con el brazo en alto en una competencia de CrossFit",
+        url: "/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Giuliana Zitella: Tu cambio no empieza el lunes. Empieza hoy.",
       },
     ],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary_large_image", images: ["/images/og.jpg"] },
   robots: { index: true, follow: true },
 };
 
