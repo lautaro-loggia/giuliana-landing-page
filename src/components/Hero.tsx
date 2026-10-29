@@ -46,7 +46,7 @@ const { srcSet: desktopSrcSet } = getImageProps({
 }).props;
 const { props: mobileImg } = getImageProps({
   ...shared,
-  src: "/images/hero-banco.jpg",
+  src: "/images/hero-banco-hd.jpg",
 });
 
 /**
@@ -144,7 +144,7 @@ export function Hero() {
             texto va a la izquierda, el velo baja suave y se corta antes de la cara */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_top,rgb(0_0_0/0.75),rgb(0_0_0/0.25)_45%,transparent_70%)] md:bg-[linear-gradient(to_top,rgb(0_0_0/0.35),transparent_40%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_top,rgb(0_0_0/0.85),rgb(0_0_0/0.55)_40%,rgb(0_0_0/0.2)_62%,transparent_78%)] md:bg-[linear-gradient(to_top,rgb(0_0_0/0.35),transparent_40%)]"
         />
         <div
           aria-hidden
