@@ -377,3 +377,32 @@ body {
     cursor: pointer;
   }
 }
+
+/* Botón del plan recomendado: un brillo que lo cruza y un halo que late */
+.cta-attention {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  animation: cta-halo 2.6s ease-out infinite;
+}
+.cta-attention::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.32) 50%, transparent 70%);
+  transform: translateX(-130%);
+  animation: cta-shine 3.4s ease-in-out infinite;
+}
+@keyframes cta-shine {
+  0%, 55% { transform: translateX(-130%); }
+  85%, 100% { transform: translateX(130%); }
+}
+@keyframes cta-halo {
+  0% { box-shadow: 0 0 0 0 rgb(125 91 216 / 0.55); }
+  70%, 100% { box-shadow: 0 0 0 12px rgb(125 91 216 / 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-attention,
+  .cta-attention::after { animation: none; }
+}

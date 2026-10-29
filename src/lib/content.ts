@@ -72,7 +72,11 @@ export const faqs = [
   },
   {
     q: "¿Qué diferencia hay entre Base y Full?",
-    a: "Los dos tienen tu rutina en la app, con videos y explicaciones de cada ejercicio, y ajustes dos veces por mes. El Full suma corrección de técnica con tus videos y consultas por WhatsApp. Si no sabés cuál te conviene, escribime y lo charlamos.",
+    a: "Los dos tienen tu rutina en la app, con videos y explicaciones de cada ejercicio, y ajustes dos veces por mes. El Full suma corrección de técnica con tus videos y una comunicación más fluida conmigo por WhatsApp. Si no sabés cuál te conviene, escribime y lo charlamos.",
+  },
+  {
+    q: "¿Cuánto cuestan los planes?",
+    a: "Depende del plan que elijas. Te paso los valores por WhatsApp y te ayudo a ver cuál te conviene, sin compromiso.",
   },
   {
     q: "¿Puedo entrenar embarazada o en posparto?",
@@ -92,8 +96,6 @@ export type Plan = {
   id: string;
   name: string;
   lead: string;
-  /** Línea que aparece antes de la lista (ej. "Todo lo de Base, más:") */
-  includesLabel?: string;
   items: string[];
   cta: string;
   /** Mensaje con el que se abre WhatsApp al tocar el botón del plan */
@@ -105,12 +107,12 @@ export const plans: Plan[] = [
   {
     id: "base",
     name: "Base",
-    lead: "Tu rutina en la app, con videos y explicaciones de cada ejercicio.",
+    lead: "Ideal si ya entrenás y querés un plan serio, hecho para vos.",
     items: [
-      "Plan de entrenamiento personalizado",
-      "Videos y explicación de cada ejercicio",
-      "Registro de series y cargas en la app",
-      "Ajustes de la rutina dos veces por mes",
+      "Rutina personalizada en la app",
+      "Video y explicación de cada ejercicio",
+      "Registrás tus series y pesos, y yo los veo",
+      "Ajusto tu rutina dos veces por mes",
     ],
     cta: "Quiero Base",
     whatsappMessage: whatsappMessages.base,
@@ -118,11 +120,11 @@ export const plans: Plan[] = [
   {
     id: "full",
     name: "Full",
-    lead: "Todo lo del Base, más tu técnica corregida y consultas directas conmigo.",
-    includesLabel: "Todo lo de Base, más:",
+    lead: "Ideal si estás arrancando o querés que te corrija de cerca.",
     items: [
-      "Corrección de técnica con tus videos",
-      "Dudas y consultas por WhatsApp",
+      "Todo lo del plan Base",
+      "Me mandás videos de tus series y te corrijo la técnica",
+      "Comunicación más fluida conmigo por WhatsApp",
     ],
     cta: "Quiero Full",
     whatsappMessage: whatsappMessages.full,

@@ -28,7 +28,7 @@ export function whatsappLink(message: string = whatsappMessages.general) {
 export const nav = [
   { label: "Resultados", href: "#resultados" },
   { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Método", href: "#metodo" },
+  { label: "Proceso", href: "#metodo" },
   { label: "Planes", href: "#planes" },
   { label: "Preguntas", href: "#preguntas" },
 ];

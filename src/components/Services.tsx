@@ -1,4 +1,4 @@
-import { Check } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
 import { Reveal } from "@/components/motion/Reveal";
 import { StartButton } from "@/components/StartForm";
 import { plans, type Plan } from "@/lib/content";
@@ -28,35 +28,34 @@ function PlanCard({ plan }: { plan: Plan }) {
           : "border-line/8 bg-ink-2"
       }`}
     >
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="display text-4xl md:text-[2.75rem]">
-          {/* El nombre en la serif del sitio, mismo color que el resto del texto */}
-          <em className="accent accent-inherit">{plan.name}</em>
-        </h3>
-        {plan.featured && (
-          <span className="rounded-md bg-lilac px-2.5 py-1 text-xs font-semibold text-on-lilac">
-            Recomendado
-          </span>
-        )}
-      </div>
+      {/* La etiqueta va centrada, montada sobre el borde de arriba */}
+      {plan.featured && (
+        <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-lilac px-3.5 py-1 text-xs font-semibold text-on-lilac shadow-lilac">
+          Recomendado
+        </span>
+      )}
+      <h3 className="display text-4xl md:text-[2.75rem]">
+        {/* El nombre en la serif del sitio, mismo color que el resto del texto */}
+        <em className="accent accent-inherit">{plan.name}</em>
+      </h3>
       <p className="mt-3 max-w-[40ch] text-sm leading-relaxed text-bone-2">
         {plan.lead}
       </p>
       <div className="mt-5 border-t hairline pt-5">
-        {plan.includesLabel && (
-          <p className="text-xs font-semibold uppercase tracking-[0.12em] text-lilac">
-            {plan.includesLabel}
-          </p>
-        )}
         <Items items={plan.items} />
       </div>
       <div className="mt-auto pt-7">
+        {/* El recomendado invita a tocarlo: un brillo que lo cruza cada tanto,
+            un halo que late y la flecha que se adelanta al pasar el mouse */}
         <StartButton
           plan={plan.name as "Base" | "Full"}
           variant={plan.featured ? "primary" : "outline"}
-          className="w-full"
+          className={`group w-full ${plan.featured ? "cta-attention" : ""}`}
         >
           {plan.cta}
+          {plan.featured && (
+            <ArrowRight size={16} weight="bold" className="transition-transform duration-300 group-hover:translate-x-1" />
+          )}
         </StartButton>
       </div>
     </article>
@@ -73,12 +72,12 @@ export function Services() {
             Elegí cómo querés <em className="accent">empezar</em>
           </h2>
           <p className="mx-auto mt-4 max-w-[52ch] leading-relaxed text-bone-2">
-            Dos niveles de acompañamiento para el plan online. Si no sabés cuál te
-            conviene, escribime y lo charlamos.
+            Los dos son online: entrenás donde quieras, con tu rutina en la app. Lo
+            que cambia es cuánto te acompaño.
           </p>
         </Reveal>
 
-        <div className="mx-auto mt-10 grid max-w-[880px] grid-cols-1 items-stretch gap-4 md:grid-cols-2 lg:gap-5">
+        <div className="mx-auto mt-10 grid max-w-[880px] grid-cols-1 items-stretch gap-x-4 gap-y-8 md:grid-cols-2 lg:gap-x-5">
           {plans.map((plan, i) => (
             <Reveal key={plan.id} delay={0.08 * i}>
               <PlanCard plan={plan} />

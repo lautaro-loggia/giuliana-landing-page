@@ -62,7 +62,7 @@ export function About() {
             <div className="mt-8 space-y-5 leading-relaxed text-bone-2 md:text-lg">
               <p>
                 Soy {site.coach}, preparadora física y atleta de CrossFit y
-                levantamiento olímpico. Entreno personas que quieren sentirse
+                halterofilia. Entreno personas que quieren sentirse
                 fuertes, no solo verse distintas.
               </p>
               <p>

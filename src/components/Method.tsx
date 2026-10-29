@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { ArrowsClockwise, ChatCircleDots, DeviceMobile, NotePencil } from "@phosphor-icons/react";
 import { Reveal } from "@/components/motion/Reveal";
@@ -86,6 +86,19 @@ export function Method() {
   });
   // The line fills as you read down: progress made visible, nothing more.
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
+  // La línea termina en el ícono del último paso, no al final de su texto:
+  // se mide cuánto alto ocupa ese último paso debajo del centro del ícono
+  const [tail, setTail] = useState(20);
+  useEffect(() => {
+    const ol = ref.current;
+    const last = ol?.lastElementChild as HTMLElement | null;
+    if (!ol || !last) return;
+    const measure = () => setTail(Math.max(20, last.offsetHeight - 20));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(last);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <section id="metodo" className="scroll-mt-24 section-line py-24 md:py-32">
@@ -117,11 +130,11 @@ export function Method() {
         </div>
 
         <div className="relative lg:col-span-7">
-          <div aria-hidden className="absolute left-[19.5px] top-5 bottom-5 w-px bg-line/10" />
+          <div aria-hidden style={{ bottom: tail }} className="absolute left-[19.5px] top-5 w-px bg-line/10" />
           <motion.div
             aria-hidden
-            style={{ scaleY: reduce ? 1 : scaleY, originY: 0 }}
-            className="absolute left-[19.5px] top-5 bottom-5 w-px bg-lilac"
+            style={{ scaleY: reduce ? 1 : scaleY, originY: 0, bottom: tail }}
+            className="absolute left-[19.5px] top-5 w-px bg-lilac"
           />
           <ol ref={ref} className="space-y-12 md:space-y-14">
             {steps.map((s, i) => (

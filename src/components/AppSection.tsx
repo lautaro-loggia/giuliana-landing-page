@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import {
   Barbell,
-  Camera,
+  ChartLineUp,
   NotePencil,
   PlayCircle,
 } from "@phosphor-icons/react";
@@ -25,7 +25,7 @@ const cells = [
   {
     icon: NotePencil,
     title: "Te devuelvo observaciones",
-    body: "Reviso tus series y tus check-ins, y te dejo devoluciones sobre tu entrenamiento y tu progreso.",
+    body: "Reviso tus series y te dejo devoluciones sobre tu entrenamiento y tu progreso.",
     span: "md:col-span-4",
   },
   {
@@ -35,9 +35,9 @@ const cells = [
     span: "md:col-span-4",
   },
   {
-    icon: Camera,
-    title: "Check-ins con fotos y medidas",
-    body: "Comparás tu progreso en el tiempo, con datos y no con sensaciones sueltas.",
+    icon: ChartLineUp,
+    title: "Ves tu progreso semana a semana",
+    body: "En la app queda todo registrado: comparás tus pesos y tus marcas en el tiempo, con datos y no con sensaciones.",
     span: "md:col-span-3",
   },
 ] as const;
