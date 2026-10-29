@@ -37,8 +37,8 @@ export const featuredCase: Testimonial & { before: Photo; after: Photo } = {
 export const testimonials: Testimonial[] = [
   {
     id: "dos-anos",
-    // Mensaje reenviado por WhatsApp. Todavía sin nombre.
-    name: "Alumna de Giuliana",
+    // Mensaje reenviado por WhatsApp
+    name: "Lucila Badano",
     detail: "Entrena con Giuli hace casi 2 años",
     quote:
       "Lo que sabe esta mujer y el amor que le pone a lo que hace es de otro nivel. Progresé un montón: sabe llevarte muy bien a que te desafíes y cada vez te animes a ir por más. Si estás pensando entrenar con ella, ni lo dudes 🤍",
@@ -46,7 +46,7 @@ export const testimonials: Testimonial[] = [
   {
     id: "primer-mensaje",
     // Extracto de su primer mensaje por WhatsApp
-    name: "Lucila Badano",
+    name: "Florencia Ramirez",
     detail: "Su primer mensaje, antes de empezar",
     quote:
       "Fui mamá hace casi 4 años y desde ese entonces no logré volver a mi cuerpo. Me gustaría empezar a entrenar, generar un hábito, constancia, y sentirme bien con uno mismo.",
@@ -107,7 +107,7 @@ export const plans: Plan[] = [
   {
     id: "base",
     name: "Base",
-    lead: "Ideal si ya entrenás y querés un plan serio, hecho para vos.",
+    lead: "Tu rutina hecha a medida, para entrenar con autonomía y mi seguimiento.",
     items: [
       "Rutina personalizada en la app",
       "Video y explicación de cada ejercicio",
@@ -120,7 +120,7 @@ export const plans: Plan[] = [
   {
     id: "full",
     name: "Full",
-    lead: "Ideal si estás arrancando o querés que te corrija de cerca.",
+    lead: "Para avanzar más rápido: te sigo de cerca y te corrijo la técnica.",
     items: [
       "Todo lo del plan Base",
       "Me mandás videos de tus series y te corrijo la técnica",
